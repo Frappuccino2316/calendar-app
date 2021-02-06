@@ -1,0 +1,7 @@
+django
+djangorestframework
+django-allauth
+mysqlclient
+django-cors-headers
+djoser
+djangorestframework-simplejwt

@@ -1,0 +1,37 @@
+version: "3"
+services:
+  web:
+    container_name: scrundar-www
+    build: .
+    working_dir: /code
+    ports:
+      - 8000:8000
+      - 8080:8080
+    volumes:
+      - .:/code
+    tty: true
+    depends_on:
+      - db
+  db:
+    container_name: scrundar-db
+    image: mysql:8.0
+    restart: always
+    environment:
+      MYSQL_DATABASE: scrundar-db
+      MYSQL_USER: root
+      MYSQL_PASSWORD: aki08hiro22yuto
+      MYSQL_ALLOW_EMPTY_PASSWORD: ‘yes’
+    ports:
+      - 3306:3306
+  front:
+    container_name: scrundar-front
+    image: node:14.15.4
+    working_dir: /code
+    ports:
+      - 3000:3000
+      - 3001:3001
+    volumes:
+      - .:/code
+    tty: true
+    depends_on:
+      - web
