@@ -1,6 +1,7 @@
 from pathlib import Path
 import os
 import environ
+from datetime import timedelta
 
 env = environ.Env()
 env.read_env()
@@ -137,14 +138,14 @@ STATIC_URL = '/static/'
 #     'rest_framework_simplejwt.authentication.JWTAuthentication',
 # }
 
-# SIMPLE_JWT = {
-#     'AUTH_HEADER_TYPES': ('JWT',),
-#     'ACCESS_TOKEN_LIFETIME': timedelta(minutes=60),
-#     'AUTH_TOKEN_CLASSES': ('rest_framework_simplejwt.tokens.AccessToken',),
-# }
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    )
+}
 
-# REST_FRAMEWORK = {
-#     'DEFAULT_AUTHENTICATION_CLASSES': (
-#         'rest_framework_simplejwt.authentication.JWTAuthentication',
-#     )
-# }
+SIMPLE_JWT = {
+    'AUTH_HEADER_TYPES': ('JWT',),
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=60),
+    # 'AUTH_TOKEN_CLASSES': ('rest_framework_simplejwt.tokens.AccessToken',),
+}
