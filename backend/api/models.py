@@ -2,7 +2,7 @@ from django.db import models
 
 class Task(models.Model):
     title = models.CharField(max_length=50)
-    team_in_charge = models.ForeinField(Team, on_delete=models.CASCADE)
+    team_in_charge = models.ForeignKey(Team, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     
