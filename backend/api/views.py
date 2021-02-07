@@ -2,14 +2,15 @@ from django.shortcuts import render
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework import generics
-from django.contrib.auth.models import User
+# from django.contrib.auth.models import User
+from users.models import Users
 from .models import Task, Team
 from rest_framework import viewsets, generics
-from .serializers import UserSerializer, TaskSerializer, TeamSerializer
+from .serializers.serializers import UserSerializer, TaskSerializer, TeamSerializer
 from .ownpermissions import ProfilePermission
 
 class UserViewSet(viewsets.ModelViewSet):
-    queryset = User.objects.all()
+    queryset = Users.objects.all()
     serializer_class = UserSerializer
     permission_classes = (ProfilePermission,)
 
