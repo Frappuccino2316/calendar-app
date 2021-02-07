@@ -1,10 +1,11 @@
 from rest_framework import serializers
-from .models import Task
-from django.contrib.auth.models import User
+from api.models import Task, Team
+# from django.contrib.auth.models import User
+from users.models import Users
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
-        model = User
+        model = Users
         fields = ('id', 'username', 'password')
         extra_kwargs = {'password': {'write_only': True, 'required': True}}
 
@@ -21,6 +22,6 @@ class TeamSerializer(serializers.ModelSerializer):
     updated_at = serializers.DateTimeField(format="%Y-%m-%d %H:%M", read_only=True)
     
     class Meta:
-        model = Task
+        model = Team
         fields = ('id', 'team_name', 'created_at', 'updated_at')
         
