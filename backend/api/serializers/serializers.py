@@ -1,6 +1,5 @@
 from rest_framework import serializers
 from api.models import Task, Team
-# from django.contrib.auth.models import User
 from users.models import Users
 
 class UserSerializer(serializers.ModelSerializer):
