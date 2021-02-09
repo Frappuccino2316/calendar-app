@@ -1,3 +1,4 @@
+from django.contrib.auth.hashers import make_password
 from rest_framework import serializers
 from api.models import Task, Team
 from users.models import Users
@@ -7,6 +8,9 @@ class UserSerializer(serializers.ModelSerializer):
         model = Users
         fields = ('id', 'username', 'password')
         extra_kwargs = {'password': {'write_only': True, 'required': True}}
+    
+    def validate_password(self,value):
+        return make_password(value)
 
 class TaskSerializer(serializers.ModelSerializer):
     created_at = serializers.DateTimeField(format="%Y-%m-%d %H:%M", read_only=True)
