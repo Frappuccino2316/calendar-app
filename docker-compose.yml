@@ -12,6 +12,9 @@ services:
     tty: true
     depends_on:
       - db
+    networks:
+      - frontend
+      - backend
   db:
     container_name: scrundar-db
     image: mysql:8.0
@@ -20,9 +23,14 @@ services:
       MYSQL_DATABASE: scrundar-db
       MYSQL_USER: root
       MYSQL_PASSWORD: aki08hiro22yuto
-      MYSQL_ALLOW_EMPTY_PASSWORD: ‘yes’
+      MYSQL_ALLOW_EMPTY_PASSWORD: ‘no’
+      MYSQL_ROOT_PASSWORD: testaki00hiro22yuto
     ports:
       - 3306:3306
+    volumes:
+      - /Users/takagifumihiro/task/db:/var/lib/mysql
+    networks:
+      - backend
   front:
     container_name: scrundar-front
     image: node:14.15.4
@@ -35,3 +43,10 @@ services:
     tty: true
     depends_on:
       - web
+    networks:
+      - frontend
+networks:
+  frontend:
+    driver: bridge
+  backend:
+    driver: bridge

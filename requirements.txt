@@ -5,3 +5,6 @@ mysqlclient
 django-cors-headers
 djoser
 djangorestframework-simplejwt
+django-environ
+pytest
+pytest-django
