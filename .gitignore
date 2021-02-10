@@ -125,3 +125,6 @@ yarn-error.log*
 /.changelog
 .npm/
 yarn.lock
+
+# 永続化db用
+db/
