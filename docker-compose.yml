@@ -12,25 +12,27 @@ services:
     tty: true
     depends_on:
       - db
-    networks:
-      - frontend
-      - backend
+    # networks:
+    #   - frontend
+    #   - backend
+
   db:
     container_name: scrundar-db
     image: mysql:8.0
-    restart: always
     environment:
       MYSQL_DATABASE: scrundar-db
-      MYSQL_USER: root
+      MYSQL_USER: frappuccino
       MYSQL_PASSWORD: aki08hiro22yuto
-      MYSQL_ALLOW_EMPTY_PASSWORD: ‘no’
-      MYSQL_ROOT_PASSWORD: testaki00hiro22yuto
+      MYSQL_ROOT_PASSWORD: root
     ports:
       - 3306:3306
     volumes:
-      - /Users/takagifumihiro/task/db:/var/lib/mysql
-    networks:
-      - backend
+      - ./db/mysql_data:/var/lib/mysql
+      - ./db/mysql_confd:/etc/mysql/conf.d
+      # - .db/mysql_init:/docker-entrypoint-initdb.d
+    # networks:
+    #   - backend
+
   front:
     container_name: scrundar-front
     image: node:14.15.4
@@ -43,10 +45,10 @@ services:
     tty: true
     depends_on:
       - web
-    networks:
-      - frontend
-networks:
-  frontend:
-    driver: bridge
-  backend:
-    driver: bridge
+#     networks:
+#       - frontend
+# networks:
+#   frontend:
+#     driver: bridge
+#   backend:
+#     driver: bridge
