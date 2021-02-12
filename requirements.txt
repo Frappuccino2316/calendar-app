@@ -9,3 +9,5 @@ django-environ
 pytest
 pytest-django
 pylint
+pyyaml
+uritemplate
