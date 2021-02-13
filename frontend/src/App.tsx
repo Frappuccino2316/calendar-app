@@ -1,36 +1,36 @@
 import React from 'react'
-import axios from 'axios'
+import { BrowserRouter as Router, Route } from 'react-router-dom'
+import Auth from './components/Auth'
+import Home from './pages/Home'
+import Login from './pages/Login'
 import './App.css'
 
 function App() {
-  const [teams, setTeams] = React.useState([])
+  // const [teams, setTeams] = React.useState([])
 
-  React.useEffect(() => {
-    // const res = async () => {
-    //   const response = await axios.get("http://localhost:8000/api/v1/teams/", {
-    //     headers: {
-    //       Authorization:
-    //         "JWT eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjEzMDUzNTA1LCJqdGkiOiJmMWEyMWU4ZDAwODQ0YmQ4OWQxYjJiYTVmZGZiZDJlMSIsInVzZXJfaWQiOjJ9.nRkgM1JLg5jpxmpgEy3VNZgNQeOU694ULFoaRyUu7b0",
-    //     },
-    //   });
-    //   setTeams(response.data);
-    //   console.log(response.data);
-    //   console.log(teams);
-    // };
-    // res();
-    axios
-      .get('http://localhost:8000/api/v1/teams/', {
-        headers: {
-          Authorization:
-            'JWT eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjEzMDUzNTA1LCJqdGkiOiJmMWEyMWU4ZDAwODQ0YmQ4OWQxYjJiYTVmZGZiZDJlMSIsInVzZXJfaWQiOjJ9.nRkgM1JLg5jpxmpgEy3VNZgNQeOU694ULFoaRyUu7b0',
-        },
-      })
-      .then((res) => setTeams(res.data))
-      .catch((e) => console.log('error'))
-  }, [])
-  console.log(teams)
+  // React.useEffect(() => {
+  // axios
+  //   .get('http://localhost:8000/api/v1/teams/', {
+  //     headers: {
+  //       Authorization:
+  //         'JWT eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjEzMDUzNTA1LCJqdGkiOiJmMWEyMWU4ZDAwODQ0YmQ4OWQxYjJiYTVmZGZiZDJlMSIsInVzZXJfaWQiOjJ9.nRkgM1JLg5jpxmpgEy3VNZgNQeOU694ULFoaRyUu7b0',
+  //     },
+  //   })
+  //   .then((res) => setTeams(res.data))
+  //   .catch((e) => console.log('error'))
+  // }, [])
+  // console.log(teams)
 
-  return <div className="App">a</div>
+  return (
+    <Router>
+      <div className="App">
+        <Auth>
+          <Route exact path="/" component={Home} />
+        </Auth>
+        <Route exact path="/login" component={Login} />
+      </div>
+    </Router>
+  )
 }
 
 export default App
