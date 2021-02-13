@@ -6,7 +6,7 @@ const verifyToken = (jwt: string): boolean => {
   let result = false
 
   axios
-    .post(`${baseUrl}auth/jwt/verify`, {
+    .post(`${baseUrl}auth/jwt/verify/`, {
       token: jwt,
     })
     .then((res) => {
