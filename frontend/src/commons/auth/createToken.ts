@@ -1,9 +1,10 @@
-import axios from 'axios'
+import axios from 'axios';
+import { apiConfig } from 'commons/apiConfig';
 
-const baseUrl: string = 'http://localhost:8000/api/v1/'
+const baseUrl: string | undefined = apiConfig.apiURL;
 
 const createToken = (username: string, password: string) => {
-  let token: string | null = ''
+  let token: string | null = '';
 
   axios
     .post(`${baseUrl}auth/jwt/create/`, {
@@ -12,12 +13,12 @@ const createToken = (username: string, password: string) => {
     })
     .then((res) => {
       if (res.status !== 200) {
-        token = null
+        token = null;
       } else {
-        token = res.data.access
+        token = res.data.access;
       }
-    })
-  return token
-}
+    });
+  return token;
+};
 
-export default createToken
+export default createToken;
