@@ -1,15 +1,52 @@
-import React from 'react'
-import { useHistory } from 'react-router-dom'
-import { useCookies } from 'react-cookie'
+import React from 'react';
+import { useHistory } from 'react-router-dom';
+import { useCookies } from 'react-cookie';
+import createToken from 'commons/auth/createToken';
 
 const Login: React.FC = () => {
-  const [cookie] = useCookies()
-  const history = useHistory()
+  const [username, setUsername] = React.useState('');
+  const [password, setPassword] = React.useState('');
+  const [cookie, setCookie] = useCookies();
+  const history = useHistory();
 
   React.useEffect(() => {
-    !cookie && history.push('/')
-  })
-  return <div>Login</div>
-}
+    !cookie.calendarJWT && history.push('/');
+  });
 
-export default Login
+  const onSubmit = async () => {
+    const token: string | null = await createToken(username, password);
+    if (token === null) {
+      setUsername('');
+      setPassword('');
+      history.push('login');
+    } else {
+      console.log(token);
+      console.log('OK');
+      setCookie('calendarJWT', token);
+      history.push('/');
+    }
+  };
+
+  return (
+    <div>
+      <h1>Login</h1>
+      <form>
+        <p>username</p>
+        <input
+          type="text"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+        />
+        <p>password</p>
+        <input
+          type="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
+        <button onClick={() => onSubmit()}>ログイン</button>
+      </form>
+    </div>
+  );
+};
+
+export default Login;
