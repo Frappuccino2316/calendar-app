@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { apiConfig } from 'commons/apiConfig';
 
-const baseUrl: string | undefined = apiConfig.apiURL;
+const baseUrl: string | undefined = apiConfig.apiUrl;
 
 const createToken = (username: string, password: string) => {
   let token: string | null = '';
