@@ -12,7 +12,6 @@ const Auth: React.FC<Props> = ({ children }) => {
   const history = useHistory();
   React.useEffect(() => {
     if (!cookie.hasOwnProperty('calendarJWT')) {
-      console.log('loginに遷移したい');
       history.push('/login');
     } else {
       const isAuthenticated = verifyToken(cookie.calendarJWT);

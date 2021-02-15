@@ -23,8 +23,6 @@ const Login: React.FC = () => {
       setPassword('');
       history.push('login');
     } else {
-      console.log(token);
-      console.log('OK');
       setCookie('calendarJWT', token);
       history.push('/');
     }
