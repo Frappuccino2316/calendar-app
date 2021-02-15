@@ -13,7 +13,10 @@ const Login: React.FC = () => {
     cookie.calendarJWT && history.push('/');
   });
 
-  const onSubmit = async () => {
+  const onSubmit = async (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
+    e.preventDefault();
     const token: string | null = await createToken(username, password);
     if (token === null) {
       setUsername('');
@@ -43,7 +46,7 @@ const Login: React.FC = () => {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        <button onClick={() => onSubmit()}>ログイン</button>
+        <button onClick={(e) => onSubmit(e)}>ログイン</button>
       </form>
     </div>
   );
