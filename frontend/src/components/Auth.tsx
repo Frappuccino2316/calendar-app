@@ -11,11 +11,13 @@ const Auth: React.FC<Props> = ({ children }) => {
   const [cookie] = useCookies();
   const history = useHistory();
   React.useEffect(() => {
-    if (cookie.calendarJWT === undefined) {
+    if (!cookie.hasOwnProperty('calendarJWT')) {
+      console.log('loginに遷移したい');
       history.push('/login');
+    } else {
+      const isAuthenticated = verifyToken(cookie.calendarJWT);
+      !isAuthenticated && history.push('/login');
     }
-    const isAuthenticated = verifyToken(cookie.calendarJWT);
-    !isAuthenticated && history.push('/login');
   });
   return <div>{children}</div>;
 };
