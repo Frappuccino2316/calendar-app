@@ -10,7 +10,7 @@ const Login: React.FC = () => {
   const history = useHistory();
 
   React.useEffect(() => {
-    !cookie.calendarJWT && history.push('/');
+    cookie.calendarJWT && history.push('/');
   });
 
   const onSubmit = async () => {
