@@ -3,10 +3,10 @@ import { apiConfig } from 'commons/apiConfig';
 
 const baseUrl: string | undefined = apiConfig.apiUrl;
 
-const createToken = (inputUsername: string, inputPassword: string) => {
+const createToken = async (inputUsername: string, inputPassword: string) => {
   let token: string | null = '';
 
-  axios
+  await axios
     .post(`${baseUrl}auth/jwt/create/`, {
       username: inputUsername,
       password: inputPassword,
