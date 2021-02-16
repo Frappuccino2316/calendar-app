@@ -1,9 +1,9 @@
 import React from 'react';
-import { NavLink, useHistory } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
+import Logout from 'components/Logout';
 import styles from './Header.module.css';
 
 const Header: React.FC = () => {
-  const history = useHistory();
   return (
     <header className={styles.header}>
       <NavLink to="/" className={styles.header_logo_nav}>
@@ -19,6 +19,7 @@ const Header: React.FC = () => {
         <NavLink to="/settings" className={styles.nav}>
           Setting
         </NavLink>
+        <Logout />
       </div>
     </header>
   );
