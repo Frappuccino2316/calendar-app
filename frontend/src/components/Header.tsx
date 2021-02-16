@@ -1,9 +1,17 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
-import Logout from 'components/Logout';
+import { NavLink, useHistory } from 'react-router-dom';
+import { useCookies } from 'react-cookie';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import styles from './Header.module.css';
 
 const Header: React.FC = () => {
+  const history = useHistory();
+  const removeCookie = useCookies()[2];
+  const logout = () => {
+    removeCookie('calendarJWT');
+    history.push('/login');
+  };
+
   return (
     <header className={styles.header}>
       <NavLink to="/" className={styles.header_logo_nav}>
@@ -19,7 +27,11 @@ const Header: React.FC = () => {
         <NavLink to="/settings" className={styles.nav}>
           Setting
         </NavLink>
-        <Logout />
+        <ExitToAppIcon
+          className={styles.logout_button}
+          onClick={() => logout()}
+          fontSize="large"
+        />
       </div>
     </header>
   );
