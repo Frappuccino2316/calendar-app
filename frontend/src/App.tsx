@@ -1,19 +1,25 @@
 import React from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
-import Auth from './components/Auth';
-import Home from './pages/Home';
-import Login from './pages/Login';
-import Logout from './components/Logout';
+import Auth from 'components/Auth';
+import Home from 'pages/Home';
+import Login from 'pages/Login';
+import Tasks from 'pages/Tasks';
+import Teams from 'pages/Teams';
+import Settings from 'pages/Settings';
+import Header from 'components/Header';
 import './App.css';
 
 function App() {
   return (
     <div className="App">
       <Router>
-        <Logout />
+        <Header />
         <Route exact path="/login" component={Login} />
         <Auth>
           <Route exact path="/" component={Home} />
+          <Route exact path="/tasks" component={Tasks} />
+          <Route exact path="/teams" component={Teams} />
+          <Route exact path="/settings" component={Settings} />
         </Auth>
       </Router>
     </div>

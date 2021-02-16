@@ -1,0 +1,53 @@
+.link_block {
+  font-family: 'Gill Sans';
+  font-size: 25px;
+}
+
+.link_block a {
+  color: #333333;
+}
+
+.block {
+  display: inline-block;
+  border-radius: 25px;
+  text-align: left;
+  padding: 10px;
+}
+
+.link_tasks {
+  background-color: #cdd114;
+  height: 180px;
+  width: 450px;
+  margin-top: 30px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 30px;
+}
+
+.link_double {
+  height: 180px;
+  width: 470px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
+.link_teams {
+  background-color: #daa142;
+  height: 120px;
+  width: 205px;
+  margin-right: 10px;
+}
+
+.link_settings {
+  background-color: #fdf121;
+  height: 120px;
+  width: 205px;
+  margin-left: 10px;
+}
+
+.icon {
+  float: right;
+  padding: 10px;
+  padding-top: 20px;
+}
