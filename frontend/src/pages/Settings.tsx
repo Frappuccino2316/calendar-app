@@ -1,7 +1,6 @@
 import axios from 'axios';
 import React from 'react';
 import { useCookies } from 'react-cookie';
-import TextField from '@material-ui/core/TextField';
 import { apiConfig } from 'commons/apiConfig';
 
 const Settings: React.FC = () => {
@@ -16,7 +15,7 @@ const Settings: React.FC = () => {
     axios
       .get(`${baseUrl}myself/`, {
         headers: {
-          Authorization: cookie.calendarJWT,
+          Authorization: `JWT ${cookie.calendarJWT}`,
         },
       })
       .then((res) => {
@@ -46,7 +45,7 @@ const Settings: React.FC = () => {
       },
       {
         headers: {
-          Authorization: cookie.calendarJWT,
+          Authorization: `JWT ${cookie.calendarJWT}`,
         },
       }
     );
@@ -56,13 +55,15 @@ const Settings: React.FC = () => {
     <div>
       <p>Settings</p>
       <span>ユーザー名</span>
-      <TextField
+      <input
+        type="text"
         value={username}
         onChange={(e: React.ChangeEvent<HTMLInputElement>) => changeUsername(e)}
       />
       <br />
       <span>メールアドレス</span>
-      <TextField
+      <input
+        type="text"
         value={email}
         onChange={(e: React.ChangeEvent<HTMLInputElement>) => changeEmail(e)}
       />
