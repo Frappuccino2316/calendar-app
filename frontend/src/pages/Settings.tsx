@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React from 'react';
 import { useCookies } from 'react-cookie';
+import TextField from '@material-ui/core/TextField';
 import { apiConfig } from 'commons/apiConfig';
 
 const Settings: React.FC = () => {
@@ -55,15 +56,13 @@ const Settings: React.FC = () => {
     <div>
       <p>Settings</p>
       <span>ユーザー名</span>
-      <input
-        type="text"
+      <TextField
         value={username}
         onChange={(e: React.ChangeEvent<HTMLInputElement>) => changeUsername(e)}
       />
       <br />
       <span>メールアドレス</span>
-      <input
-        type="text"
+      <TextField
         value={email}
         onChange={(e: React.ChangeEvent<HTMLInputElement>) => changeEmail(e)}
       />
