@@ -14,15 +14,15 @@ function App() {
     <div className="App">
       <Router>
         <Header />
+        {/* <Switch> */}
         <Route exact path="/login" component={Login} />
-        <Switch>
-          <Auth>
-            <Route exact path="/" component={Home} />
-            <Route exact path="/tasks" component={Tasks} />
-            <Route exact path="/teams" component={Teams} />
-            <Route exact path="/settings" component={Settings} />
-          </Auth>
-        </Switch>
+        <Auth>
+          <Route exact path="/" component={Home} />
+          <Route exact path="/tasks" component={Tasks} />
+          <Route exact path="/teams" component={Teams} />
+          <Route exact path="/settings" component={Settings} />
+        </Auth>
+        {/* </Switch> */}
       </Router>
     </div>
   );
