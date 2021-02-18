@@ -1,11 +1,12 @@
-import React from 'react'
+import React from 'react';
+import Auth from 'components/Auth';
 
 const Tasks: React.FC = () => {
   return (
-    <div>
+    <Auth>
       <p>Tasks</p>
-    </div>
-  )
-}
+    </Auth>
+  );
+};
 
-export default Tasks
+export default Tasks;
