@@ -10,16 +10,15 @@ const Login: React.FC = () => {
   const [cookie, setCookie] = useCookies();
   const history = useHistory();
 
-  const checkAlreadyAuthenticated = async () => {
-    if (cookie.hasOwnProperty('calendarJWT')) {
-      const isAuthenticated = await verifyToken(cookie.calendarJWT);
-      isAuthenticated && history.push('/');
-    }
-  };
-
   React.useEffect(() => {
+    const checkAlreadyAuthenticated = async () => {
+      if (cookie.hasOwnProperty('calendarJWT')) {
+        const isAuthenticated = await verifyToken(cookie.calendarJWT);
+        isAuthenticated && history.push('/');
+      }
+    };
     checkAlreadyAuthenticated();
-  }, []);
+  }, [cookie, history]);
 
   const onSubmit = async (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
