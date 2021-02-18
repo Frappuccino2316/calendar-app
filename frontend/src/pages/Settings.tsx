@@ -2,6 +2,7 @@ import axios from 'axios';
 import React from 'react';
 import { useCookies } from 'react-cookie';
 import { apiConfig } from 'commons/apiConfig';
+import Auth from 'components/Auth';
 
 const Settings: React.FC = () => {
   const [username, setUsername] = React.useState<string>('');
@@ -52,7 +53,7 @@ const Settings: React.FC = () => {
   };
 
   return (
-    <div>
+    <Auth>
       <p>Settings</p>
       <span>ユーザー名</span>
       <input
@@ -69,7 +70,7 @@ const Settings: React.FC = () => {
       />
       <br />
       <button onClick={() => updateMyself()}>保存</button>
-    </div>
+    </Auth>
   );
 };
 

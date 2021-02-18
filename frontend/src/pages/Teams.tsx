@@ -1,4 +1,5 @@
 import React from 'react';
+import Auth from 'components/Auth';
 
 const Teams: React.FC = () => {
   // const [team, setTeam] = React.useState('');
@@ -8,11 +9,11 @@ const Teams: React.FC = () => {
   // }, [])
 
   return (
-    <div>
+    <Auth>
       <h1>Teams</h1>
       <p>所属チーム</p>
       {/* <p>{teamName}</p> */}
-    </div>
+    </Auth>
   );
 };
 
