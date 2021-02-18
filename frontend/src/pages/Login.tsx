@@ -29,7 +29,7 @@ const Login: React.FC = () => {
     if (token === null) {
       setUsername('');
       setPassword('');
-      history.push('login');
+      history.push('/login');
     } else {
       setCookie('calendarJWT', token);
       history.push('/');
