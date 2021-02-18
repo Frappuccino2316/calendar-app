@@ -3,8 +3,6 @@ import axios from 'axios';
 const baseUrl: string = 'http://localhost:8000/api/v1/';
 
 const verifyToken = async (jwt: string) => {
-  // let result = false;
-
   const result = await axios
     .post(`${baseUrl}auth/jwt/verify/`, {
       token: jwt,
