@@ -2,6 +2,7 @@ import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { useCookies } from 'react-cookie';
 import createToken from 'commons/auth/createToken';
+import verifyToken from 'commons/auth/verifyToken';
 
 const Login: React.FC = () => {
   const [username, setUsername] = React.useState('');
@@ -9,8 +10,15 @@ const Login: React.FC = () => {
   const [cookie, setCookie] = useCookies();
   const history = useHistory();
 
+  // React.useEffect(() => {
+  //   cookie.calendarJWT && history.push('/');
+  // });
+
   React.useEffect(() => {
-    cookie.calendarJWT && history.push('/');
+    if (cookie.hasOwnProperty('calendarJWT')) {
+      const isAuthenticated = verifyToken(cookie.calendarJWT);
+      isAuthenticated && history.push('/');
+    }
   });
 
   const onSubmit = async (
