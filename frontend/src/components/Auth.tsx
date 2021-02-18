@@ -17,7 +17,7 @@ const Auth: React.FC<Props> = ({ children }) => {
       const isAuthenticated = verifyToken(cookie.calendarJWT);
       !isAuthenticated && history.push('/login');
     }
-  });
+  }, [cookie, history]);
   return <div>{children}</div>;
 };
 

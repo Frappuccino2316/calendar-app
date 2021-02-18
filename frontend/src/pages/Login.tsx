@@ -10,16 +10,15 @@ const Login: React.FC = () => {
   const [cookie, setCookie] = useCookies();
   const history = useHistory();
 
-  // React.useEffect(() => {
-  //   cookie.calendarJWT && history.push('/');
-  // });
-
   React.useEffect(() => {
-    if (cookie.hasOwnProperty('calendarJWT')) {
-      const isAuthenticated = verifyToken(cookie.calendarJWT);
-      isAuthenticated && history.push('/');
-    }
-  });
+    const checkAlreadyAuthenticated = async () => {
+      if (cookie.hasOwnProperty('calendarJWT')) {
+        const isAuthenticated = await verifyToken(cookie.calendarJWT);
+        isAuthenticated && history.push('/');
+      }
+    };
+    checkAlreadyAuthenticated();
+  }, [cookie, history]);
 
   const onSubmit = async (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
@@ -29,7 +28,7 @@ const Login: React.FC = () => {
     if (token === null) {
       setUsername('');
       setPassword('');
-      history.push('login');
+      history.push('/login');
     } else {
       setCookie('calendarJWT', token);
       history.push('/');

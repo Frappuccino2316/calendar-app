@@ -1,25 +1,23 @@
-import axios from 'axios'
+import axios from 'axios';
 
-const baseUrl: string = 'http://localhost:8000/api/v1/'
+const baseUrl: string = 'http://localhost:8000/api/v1/';
 
-const verifyToken = (jwt: string): boolean => {
-  let result = false
-
-  axios
+const verifyToken = async (jwt: string) => {
+  const result = await axios
     .post(`${baseUrl}auth/jwt/verify/`, {
       token: jwt,
     })
     .then((res) => {
       if (res.status === 200) {
-        result = true
+        return true;
       } else {
-        result = false
+        return false;
       }
     })
     .catch((e) => {
-      result = false
-    })
-  return result
-}
+      return false;
+    });
+  return result;
+};
 
-export default verifyToken
+export default verifyToken;
