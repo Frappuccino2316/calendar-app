@@ -28,7 +28,7 @@ class TeamSerializer(serializers.ModelSerializer):
         model = Team
         fields = ('id', 'team_name', 'created_at', 'updated_at')
 
-class UserSerializer(serializers.ModelSerializer):
+class MyselfSerializer(serializers.ModelSerializer):
     team_of_affiliation = TeamSerializer(many=False, read_only=True)
     
     class Meta:
