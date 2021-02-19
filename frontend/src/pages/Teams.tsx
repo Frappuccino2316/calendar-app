@@ -17,7 +17,7 @@ const Teams: React.FC = () => {
         },
       })
       .then((res) => {
-        setTeamName(res.data.team_of_affiliation);
+        setTeamName(res.data.team_of_affiliation.team_name);
       });
   }, [cookie, baseUrl]);
 
