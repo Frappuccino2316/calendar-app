@@ -5,7 +5,7 @@ from rest_framework import generics, mixins
 from users.models import Users
 from .models import Task, Team
 from rest_framework import viewsets, generics
-from .serializers.serializers import UserSerializer, TaskSerializer, TeamSerializer
+from .serializers.serializers import MyselfSerializer, UserSerializer, TaskSerializer, TeamSerializer
 from .ownpermissions import ProfilePermission
 
 class UserViewSet(mixins.CreateModelMixin, mixins.UpdateModelMixin, mixins.DestroyModelMixin, viewsets.GenericViewSet):
@@ -15,7 +15,7 @@ class UserViewSet(mixins.CreateModelMixin, mixins.UpdateModelMixin, mixins.Destr
     
 
 class ManageUserView(generics.RetrieveUpdateAPIView):
-    serializer_class = UserSerializer
+    serializer_class = MyselfSerializer
     authentication_classes = (JWTAuthentication,)
     permission_classes = (IsAuthenticated,)
     

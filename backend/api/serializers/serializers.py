@@ -27,4 +27,14 @@ class TeamSerializer(serializers.ModelSerializer):
     class Meta:
         model = Team
         fields = ('id', 'team_name', 'created_at', 'updated_at')
-        
+
+class MyselfSerializer(serializers.ModelSerializer):
+    team_of_affiliation = TeamSerializer(many=False, read_only=True)
+    
+    class Meta:
+        model = Users
+        fields = ('id', 'username', 'password', 'email', 'team_of_affiliation')
+        extra_kwargs = {'password': {'write_only': True, 'required': True}}
+    
+    def validate_password(self,value):
+        return make_password(value)
