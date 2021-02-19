@@ -12,11 +12,7 @@ const createToken = async (inputUsername: string, inputPassword: string) => {
       password: inputPassword,
     })
     .then((res) => {
-      // if (res.status !== 200) {
-      //   token = null;
-      // } else {
       token = res.data.access;
-      // }
     })
     .catch((e) => {
       token = null;
