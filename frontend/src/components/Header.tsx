@@ -2,21 +2,30 @@ import React from 'react';
 import { NavLink, useHistory } from 'react-router-dom';
 import { useCookies } from 'react-cookie';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import verifyToken from 'commons/auth/verifyToken';
 import styles from './Header.module.css';
 
 const Header: React.FC = () => {
+  const [login, setLogin] = React.useState(false);
   const history = useHistory();
-  const removeCookie = useCookies()[2];
+  const [cookie, setCookie, removeCookie] = useCookies();
   const logout = () => {
     removeCookie('calendarJWT');
     history.push('/login');
   };
 
-  return (
-    <header className={styles.header}>
-      <NavLink to="/" className={styles.header_logo_nav}>
-        Scrundar
-      </NavLink>
+  React.useEffect(() => {
+    const checkAlreadyAuthenticated = async () => {
+      if (cookie.hasOwnProperty('calendarJWT')) {
+        const isAuthenticated = await verifyToken(cookie.calendarJWT);
+        isAuthenticated && setLogin(isAuthenticated);
+      }
+    };
+    checkAlreadyAuthenticated();
+  }, [cookie]);
+
+  const HeaderLink = () => {
+    return (
       <div className={styles.header_nav}>
         <NavLink to="/tasks" className={styles.nav}>
           Task
@@ -33,6 +42,15 @@ const Header: React.FC = () => {
           fontSize="large"
         />
       </div>
+    );
+  };
+
+  return (
+    <header className={styles.header}>
+      <NavLink to="/" className={styles.header_logo_nav}>
+        Scrundar
+      </NavLink>
+      {login && <HeaderLink />}
     </header>
   );
 };
