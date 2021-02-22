@@ -10,6 +10,7 @@ type Props = {
 const Auth: React.FC<Props> = ({ children }) => {
   const [cookie] = useCookies();
   const history = useHistory();
+
   React.useEffect(() => {
     if (!cookie.hasOwnProperty('calendarJWT')) {
       history.push('/login');
@@ -18,6 +19,7 @@ const Auth: React.FC<Props> = ({ children }) => {
       !isAuthenticated && history.push('/login');
     }
   }, [cookie, history]);
+
   return <div>{children}</div>;
 };
 
