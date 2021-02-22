@@ -10,14 +10,20 @@ type Props = {
 const Auth: React.FC<Props> = ({ children }) => {
   const [cookie] = useCookies();
   const history = useHistory();
+
   React.useEffect(() => {
+    const checkToken = async () => {
+      const result = await verifyToken(cookie.calendarJWT);
+      !result && history.push('login');
+    };
+
     if (!cookie.hasOwnProperty('calendarJWT')) {
       history.push('/login');
     } else {
-      const isAuthenticated = verifyToken(cookie.calendarJWT);
-      !isAuthenticated && history.push('/login');
+      checkToken();
     }
   }, [cookie, history]);
+
   return <div>{children}</div>;
 };
 
