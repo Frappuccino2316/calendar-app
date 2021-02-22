@@ -8,9 +8,11 @@ import styles from './Header.module.css';
 const Header: React.FC = () => {
   const [login, setLogin] = React.useState(false);
   const history = useHistory();
-  const [cookie, setCookie, removeCookie] = useCookies();
+  const [cookie] = useCookies();
+  const removeCookie = useCookies()[2];
   const logout = () => {
     removeCookie('calendarJWT');
+    setLogin(false);
     history.push('/login');
   };
 
