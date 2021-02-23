@@ -1,0 +1,720 @@
+openapi: 3.0.2
+info:
+  title: ""
+  version: ""
+paths:
+  /api/v1/myself/:
+    get:
+      operationId: retrieveMyself
+      description: ""
+      parameters: []
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Myself"
+          description: ""
+      tags:
+        - api
+    put:
+      operationId: updateMyself
+      description: ""
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Myself"
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: "#/components/schemas/Myself"
+          multipart/form-data:
+            schema:
+              $ref: "#/components/schemas/Myself"
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Myself"
+          description: ""
+      tags:
+        - api
+    patch:
+      operationId: partialUpdateMyself
+      description: ""
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Myself"
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: "#/components/schemas/Myself"
+          multipart/form-data:
+            schema:
+              $ref: "#/components/schemas/Myself"
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Myself"
+          description: ""
+      tags:
+        - api
+  /api/v1/team_and_tasks/:
+    get:
+      operationId: listTeamAndTasks
+      description: ""
+      parameters: []
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  team:
+                    type: "object"
+                    properties:
+                      id:
+                        type: "integer"
+                        readOnly: true
+                      title:
+                        type: "string"
+                        maxLength: 50
+                        example: "Test"
+                      created_at:
+                        type: "string"
+                        format: date-time
+                        readOnly: true
+                      updated_at:
+                        type: "string"
+                        format: date-time
+                        readOnly: true
+                  tasks:
+                    type: "array"
+                    items:
+                      type: "object"
+                      properties:
+                        id:
+                          type: "integer"
+                          readOnly: true
+                        title:
+                          type: "string"
+                          maxLength: 50
+                        team_in_charge:
+                          type: "integer"
+                        created_at:
+                          type: "string"
+                          format: date-time
+                          readOnly: true
+                        updated_at:
+                          type: "string"
+                          format: date-time
+                          readOnly: true
+          description: ""
+      tags:
+        - api
+  /api/v1/tasks/:
+    get:
+      operationId: listTasks
+      description: ""
+      parameters: []
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Task"
+          description: ""
+      tags:
+        - api
+    post:
+      operationId: createTask
+      description: ""
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Task"
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: "#/components/schemas/Task"
+          multipart/form-data:
+            schema:
+              $ref: "#/components/schemas/Task"
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Task"
+          description: ""
+      tags:
+        - api
+  /api/v1/tasks/{id}/:
+    get:
+      operationId: retrieveTask
+      description: ""
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: A unique integer value identifying this task.
+          schema:
+            type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Task"
+          description: ""
+      tags:
+        - api
+    put:
+      operationId: updateTask
+      description: ""
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: A unique integer value identifying this task.
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Task"
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: "#/components/schemas/Task"
+          multipart/form-data:
+            schema:
+              $ref: "#/components/schemas/Task"
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Task"
+          description: ""
+      tags:
+        - api
+    patch:
+      operationId: partialUpdateTask
+      description: ""
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: A unique integer value identifying this task.
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Task"
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: "#/components/schemas/Task"
+          multipart/form-data:
+            schema:
+              $ref: "#/components/schemas/Task"
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Task"
+          description: ""
+      tags:
+        - api
+    delete:
+      operationId: destroyTask
+      description: ""
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: A unique integer value identifying this task.
+          schema:
+            type: string
+      responses:
+        "204":
+          description: ""
+      tags:
+        - api
+  /api/v1/teams/:
+    get:
+      operationId: listTeams
+      description: ""
+      parameters: []
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Team"
+          description: ""
+      tags:
+        - api
+    post:
+      operationId: createTeam
+      description: ""
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Team"
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: "#/components/schemas/Team"
+          multipart/form-data:
+            schema:
+              $ref: "#/components/schemas/Team"
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Team"
+          description: ""
+      tags:
+        - api
+  /api/v1/teams/{id}/:
+    get:
+      operationId: retrieveTeam
+      description: ""
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: A unique integer value identifying this team.
+          schema:
+            type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Team"
+          description: ""
+      tags:
+        - api
+    put:
+      operationId: updateTeam
+      description: ""
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: A unique integer value identifying this team.
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Team"
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: "#/components/schemas/Team"
+          multipart/form-data:
+            schema:
+              $ref: "#/components/schemas/Team"
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Team"
+          description: ""
+      tags:
+        - api
+    patch:
+      operationId: partialUpdateTeam
+      description: ""
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: A unique integer value identifying this team.
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Team"
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: "#/components/schemas/Team"
+          multipart/form-data:
+            schema:
+              $ref: "#/components/schemas/Team"
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Team"
+          description: ""
+      tags:
+        - api
+    delete:
+      operationId: destroyTeam
+      description: ""
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: A unique integer value identifying this team.
+          schema:
+            type: string
+      responses:
+        "204":
+          description: ""
+      tags:
+        - api
+  /api/v1/auth/jwt/create/:
+    post:
+      operationId: createTokenObtainPair
+      description:
+        "Takes a set of user credentials and returns an access and refresh
+        JSON web
+
+        token pair to prove the authentication of those credentials."
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/TokenObtainPair"
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: "#/components/schemas/TokenObtainPair"
+          multipart/form-data:
+            schema:
+              $ref: "#/components/schemas/TokenObtainPair"
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TokenObtainPair"
+          description: ""
+      tags:
+        - api
+  /api/v1/auth/jwt/refresh/:
+    post:
+      operationId: createTokenRefresh
+      description:
+        "Takes a refresh type JSON web token and returns an access type
+        JSON web
+
+        token if the refresh token is valid."
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/TokenRefresh"
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: "#/components/schemas/TokenRefresh"
+          multipart/form-data:
+            schema:
+              $ref: "#/components/schemas/TokenRefresh"
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TokenRefresh"
+          description: ""
+      tags:
+        - api
+  /api/v1/auth/jwt/verify/:
+    post:
+      operationId: createTokenVerify
+      description:
+        "Takes a token and indicates if it is valid.  This view provides
+        no
+
+        information about a token's fitness for a particular use."
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/TokenVerify"
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: "#/components/schemas/TokenVerify"
+          multipart/form-data:
+            schema:
+              $ref: "#/components/schemas/TokenVerify"
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TokenVerify"
+          description: ""
+      tags:
+        - api
+  /api/v1/users/:
+    post:
+      operationId: createUsers
+      description: ""
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/User"
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: "#/components/schemas/User"
+          multipart/form-data:
+            schema:
+              $ref: "#/components/schemas/User"
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+          description: ""
+      tags:
+        - api
+  /api/v1/users/{id}/:
+    put:
+      operationId: updateUsers
+      description: ""
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: A unique integer value identifying this user.
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/User"
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: "#/components/schemas/User"
+          multipart/form-data:
+            schema:
+              $ref: "#/components/schemas/User"
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+          description: ""
+      tags:
+        - api
+    patch:
+      operationId: partialUpdateUsers
+      description: ""
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: A unique integer value identifying this user.
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/User"
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: "#/components/schemas/User"
+          multipart/form-data:
+            schema:
+              $ref: "#/components/schemas/User"
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+          description: ""
+      tags:
+        - api
+    delete:
+      operationId: destroyUsers
+      description: ""
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: A unique integer value identifying this user.
+          schema:
+            type: string
+      responses:
+        "204":
+          description: ""
+      tags:
+        - api
+components:
+  schemas:
+    Myself:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        username:
+          type: string
+          description:
+            Required. 150 characters or fewer. Letters, digits and @/./+/-/_
+            only.
+          pattern: ^[\w.@+-]+\z
+          maxLength: 150
+        password:
+          type: string
+          writeOnly: true
+          maxLength: 128
+        email:
+          type: string
+          format: email
+          maxLength: 254
+        team_of_affiliation:
+          type: object
+          properties:
+            id:
+              type: integer
+              readOnly: true
+            team_name:
+              type: string
+              maxLength: 50
+            created_at:
+              type: string
+              format: date-time
+              readOnly: true
+            updated_at:
+              type: string
+              format: date-time
+              readOnly: true
+          required:
+            - team_name
+          readOnly: true
+      required:
+        - username
+        - password
+        - email
+    Task:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        title:
+          type: string
+          maxLength: 50
+        team_in_charge:
+          type: integer
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+        - title
+        - team_in_charge
+    Team:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        team_name:
+          type: string
+          maxLength: 50
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+        - team_name
+    TokenObtainPair:
+      type: object
+      properties:
+        username:
+          type: string
+        password:
+          type: string
+          writeOnly: true
+      required:
+        - username
+        - password
+    TokenRefresh:
+      type: object
+      properties:
+        refresh:
+          type: string
+      required:
+        - refresh
+    TokenVerify:
+      type: object
+      properties:
+        token:
+          type: string
+      required:
+        - token
+    User:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        username:
+          type: string
+          description:
+            Required. 150 characters or fewer. Letters, digits and @/./+/-/_
+            only.
+          pattern: ^[\w.@+-]+\z
+          maxLength: 150
+        password:
+          type: string
+          writeOnly: true
+          maxLength: 128
+        email:
+          type: string
+          format: email
+          maxLength: 254
+        team_of_affiliation:
+          type: integer
+          nullable: true
+      required:
+        - username
+        - password
+        - email
