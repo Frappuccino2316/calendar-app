@@ -51,10 +51,9 @@ class TeamAndTasks(APIView):
         
         team = Team.objects.get(id=user.team_of_affiliation.id)
         tasks_queryset = Task.objects.filter(team_in_charge=user.team_of_affiliation.id)
-        tasks = [task for task in list(tasks_queryset)]
 
         team_data = TeamSerializer(team).data
-        tasks_data = [TaskSerializer(task).data  for task in tasks]
+        tasks_data = [TaskSerializer(task).data  for task in list(tasks_queryset)]
         
         return Response({
             "team": team_data,
