@@ -27,10 +27,17 @@ class TaskViewSet(viewsets.ModelViewSet):
     serializer_class = TaskSerializer
     authentication_classes = (JWTAuthentication,)
     permission_classes = (IsAuthenticated,)
-
+    
+    def get_queryset(self):
+        user = self.request.user
+        return Task.objects.filter(team_in_charge=user.team_of_affiliation.id)
+    
 class TeamViewSet(viewsets.ModelViewSet):
     queryset = Team.objects.all()
     serializer_class = TeamSerializer
     authentication_classes = (JWTAuthentication,)
     permission_classes = (IsAuthenticated,)
     
+    def get_queryset(self):
+        user = self.request.user
+        return Team.objects.filter(id=user.team_of_affiliation.id)
