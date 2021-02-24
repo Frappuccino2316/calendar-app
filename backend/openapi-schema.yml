@@ -81,18 +81,18 @@ paths:
                     type: "object"
                     properties:
                       id:
-                        type: "integer"
+                        type: integer
                         readOnly: true
                       title:
-                        type: "string"
+                        type: string
                         maxLength: 50
-                        example: "Test"
+                        example: "Test Team"
                       created_at:
-                        type: "string"
+                        type: string
                         format: date-time
                         readOnly: true
                       updated_at:
-                        type: "string"
+                        type: string
                         format: date-time
                         readOnly: true
                   tasks:
@@ -101,19 +101,20 @@ paths:
                       type: "object"
                       properties:
                         id:
-                          type: "integer"
+                          type: integer
                           readOnly: true
                         title:
-                          type: "string"
+                          type: string
                           maxLength: 50
+                          example: "Test Task"
                         team_in_charge:
-                          type: "integer"
+                          type: integer
                         created_at:
-                          type: "string"
+                          type: string
                           format: date-time
                           readOnly: true
                         updated_at:
-                          type: "string"
+                          type: string
                           format: date-time
                           readOnly: true
           description: ""
