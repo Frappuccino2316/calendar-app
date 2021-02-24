@@ -18,7 +18,17 @@ class TaskSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = Task
-        fields = ('id', 'title', 'team_in_charge', 'created_at', 'updated_at')
+        fields = ('id', 'title', 'created_at', 'updated_at')
+    
+    def create(self, validated_data):
+        user = self.context['request'].user
+        team = Team.objects.get(id=user.team_of_affiliation.id)
+        task = Task(
+            title = validated_data['title'],
+            team_in_charge = team
+        )
+        task.save()
+        return task
         
 class TeamSerializer(serializers.ModelSerializer):
     created_at = serializers.DateTimeField(format="%Y-%m-%d %H:%M", read_only=True)
