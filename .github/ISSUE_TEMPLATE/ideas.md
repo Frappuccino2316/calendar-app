@@ -1,11 +1,11 @@
 ---
 name: Ideas
 about: Describe this issue template's purpose here.
-title: "[idea]"
+title: ''
 labels: ideas
 assignees: ''
 
 ---
 
-# アイデア
+# 内容
 xxx
