@@ -78,45 +78,33 @@ paths:
                 type: "object"
                 properties:
                   team:
-                    type: "object"
-                    properties:
-                      id:
-                        type: integer
-                        readOnly: true
-                      title:
-                        type: string
-                        maxLength: 50
-                        example: "Test Team"
-                      created_at:
-                        type: string
-                        format: date-time
-                        readOnly: true
-                      updated_at:
-                        type: string
-                        format: date-time
-                        readOnly: true
+                    $ref: "#/components/schemas/Team"
                   tasks:
                     type: "array"
                     items:
-                      type: "object"
-                      properties:
-                        id:
-                          type: integer
-                          readOnly: true
-                        title:
-                          type: string
-                          maxLength: 50
-                          example: "Test Task"
-                        team_in_charge:
-                          type: integer
-                        created_at:
-                          type: string
-                          format: date-time
-                          readOnly: true
-                        updated_at:
-                          type: string
-                          format: date-time
-                          readOnly: true
+                      $ref: "#/components/schemas/Task"
+          description: ""
+      tags:
+        - api
+  /api/v1/team_and_members/:
+    get:
+      operationId: listTeamAndMembers
+      description: ""
+      parameters: []
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  team:
+                    type: "object"
+                    $ref: "#/components/schemas/Team"
+                  members:
+                    type: "array"
+                    items:
+                      $ref: "#/components/schemas/User"
           description: ""
       tags:
         - api

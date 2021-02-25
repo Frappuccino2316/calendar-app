@@ -50,12 +50,30 @@ class TeamAndTasks(APIView):
         user = self.request.user
         
         team = Team.objects.get(id=user.team_of_affiliation.id)
-        tasks_queryset = Task.objects.filter(team_in_charge=user.team_of_affiliation.id)
-
         team_data = TeamSerializer(team).data
+        
+        tasks_queryset = Task.objects.filter(team_in_charge=user.team_of_affiliation.id)
         tasks_data = [TaskSerializer(task).data  for task in list(tasks_queryset)]
         
         return Response({
             "team": team_data,
             "tasks": tasks_data
+        })
+
+class TeamAndMembers(APIView):
+    authentication_classes = (JWTAuthentication,)
+    permission_classes = (IsAuthenticated,)
+    
+    def get(self, request):
+        user = self.request.user
+        
+        team = Team.objects.get(id=user.team_of_affiliation.id)
+        team_data = TeamSerializer(team).data
+        
+        members_queryset = Users.objects.filter(team_of_affiliation=team.id)
+        members_data = [UserSerializer(member).data  for member in list(members_queryset)]
+        
+        return Response({
+            "team": team_data,
+            "members": members_data
         })
