@@ -68,8 +68,7 @@ class TeamAndMembers(APIView):
         user = self.request.user
         
         if user.team_of_affiliation == None:
-            return Response({
-            })
+            return Response({})
         
         team = Team.objects.get(id=user.team_of_affiliation.id)
         team_data = TeamSerializer(team).data
