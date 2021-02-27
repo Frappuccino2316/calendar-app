@@ -3,6 +3,7 @@ import { useCookies } from 'react-cookie';
 import axios from 'axios';
 import { apiConfig } from 'commons/apiConfig';
 import Auth from 'components/Auth';
+import Title from 'components/Title';
 import './Team.css';
 
 type Team = {
@@ -52,7 +53,7 @@ const Teams: React.FC = () => {
   if (loading) {
     return (
       <Auth>
-        <h1>Team</h1>
+        <Title title="Team" />
         <p>loading...</p>
       </Auth>
     );
@@ -60,7 +61,7 @@ const Teams: React.FC = () => {
 
   return (
     <Auth>
-      <h1>Teams</h1>
+      <Title title="Team" />
       <h3>所属チーム</h3>
       <p>{team ? team.team_name : 'チームに所属していません'}</p>
       <h5>所属メンバー</h5>

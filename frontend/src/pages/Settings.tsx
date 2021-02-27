@@ -3,6 +3,8 @@ import { useCookies } from 'react-cookie';
 import axios from 'axios';
 import { apiConfig } from 'commons/apiConfig';
 import Auth from 'components/Auth';
+import Title from 'components/Title';
+import TextBox from 'components/TextBox';
 
 const Settings: React.FC = () => {
   const [username, setUsername] = React.useState<string>('');
@@ -29,14 +31,6 @@ const Settings: React.FC = () => {
     };
   }, [baseUrl, cookie]);
 
-  const changeUsername = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setUsername(e.target.value);
-  };
-
-  const changeEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setUsername(e.target.value);
-  };
-
   const updateMyself = () => {
     axios.patch(
       `${baseUrl}myself/`,
@@ -54,20 +48,12 @@ const Settings: React.FC = () => {
 
   return (
     <Auth>
-      <p>Settings</p>
+      <Title title="Setting" />
       <span>ユーザー名</span>
-      <input
-        type="text"
-        value={username}
-        onChange={(e: React.ChangeEvent<HTMLInputElement>) => changeUsername(e)}
-      />
+      <TextBox value={username} setValueFunction={setUsername} />
       <br />
       <span>メールアドレス</span>
-      <input
-        type="text"
-        value={email}
-        onChange={(e: React.ChangeEvent<HTMLInputElement>) => changeEmail(e)}
-      />
+      <TextBox value={email} setValueFunction={setEmail} />
       <br />
       <button onClick={() => updateMyself()}>保存</button>
     </Auth>

@@ -1,10 +1,11 @@
 import React from 'react';
 import Auth from 'components/Auth';
+import Title from 'components/Title';
 
 const Tasks: React.FC = () => {
   return (
     <Auth>
-      <p>Tasks</p>
+      <Title title="Task" />
     </Auth>
   );
 };
