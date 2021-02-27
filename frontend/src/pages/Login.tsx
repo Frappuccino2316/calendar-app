@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom';
 import { useCookies } from 'react-cookie';
 import createToken from 'commons/auth/createToken';
 import verifyToken from 'commons/auth/verifyToken';
+import Title from 'components/Title';
 
 const Login: React.FC = () => {
   const [username, setUsername] = React.useState('');
@@ -37,7 +38,7 @@ const Login: React.FC = () => {
 
   return (
     <div>
-      <h1>Login</h1>
+      <Title title="Login" />
       <form>
         <p>username</p>
         <input
