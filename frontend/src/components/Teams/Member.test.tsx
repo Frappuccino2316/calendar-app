@@ -5,7 +5,7 @@ import Member from 'components/Teams/Member';
 afterEach(cleanup);
 
 describe('Member', () => {
-  it('Should display member name', async () => {
+  it('Should display member name', () => {
     const member_information = {
       id: 2,
       username: 'test1',
