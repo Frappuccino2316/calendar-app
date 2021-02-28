@@ -1,12 +1,14 @@
 import React from 'react';
 
+type User = {
+  id: number;
+  username: string;
+  email: string;
+  team_of_affiliation: number;
+};
+
 type Props = {
-  user: {
-    id: number;
-    username: string;
-    email: string;
-    team_of_affiliation: Number;
-  };
+  user: User;
 };
 
 const Member: React.FC<Props> = ({ user }) => {
