@@ -1,6 +1,7 @@
 import axios from 'axios';
+import { apiConfig } from 'commons/apiConfig';
 
-const baseUrl: string = 'http://localhost:8000/api/v1/';
+const baseUrl: string | undefined = apiConfig.apiUrl;
 
 const verifyToken = async (jwt: string) => {
   const result = await axios
