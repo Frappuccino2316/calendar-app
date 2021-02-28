@@ -47,6 +47,7 @@
     ]
   },
   "devDependencies": {
+    "axios-mock-adapter": "^1.19.0",
     "ts-jest": "^26.5.2"
   }
 }
