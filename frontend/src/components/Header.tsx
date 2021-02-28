@@ -50,7 +50,7 @@ const Header: React.FC = () => {
   return (
     <header className={styles.header}>
       <NavLink to="/" className={styles.header_logo_nav}>
-        Scrundar
+        Scrum Calendar
       </NavLink>
       {login && <HeaderLink />}
     </header>
