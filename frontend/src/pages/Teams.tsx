@@ -4,20 +4,21 @@ import axios from 'axios';
 import { apiConfig } from 'commons/apiConfig';
 import Auth from 'components/Auth';
 import Title from 'components/Title';
+import MembersList from 'components/Teams/MembersList';
 import './Team.css';
 
 type Team = {
-  id: Number;
+  id: number;
   team_name: string;
   created_at: string;
   updated_at: string;
 };
 
 type User = {
-  id: Number;
+  id: number;
   username: string;
   email: string;
-  team_of_affiliation: Team;
+  team_of_affiliation: number;
 };
 
 const Teams: React.FC = () => {
@@ -46,10 +47,6 @@ const Teams: React.FC = () => {
       });
   }, [baseUrl, cookie]);
 
-  const memberInformation = (member: User) => {
-    return <li>{member.username}</li>;
-  };
-
   if (loading) {
     return (
       <Auth>
@@ -65,15 +62,11 @@ const Teams: React.FC = () => {
       <h3>所属チーム</h3>
       <p>{team ? team.team_name : 'チームに所属していません'}</p>
       <h5>所属メンバー</h5>
-      <ul>
-        {members ? (
-          members.map((member: User) => {
-            return memberInformation(member);
-          })
-        ) : (
-          <li>所属メンバーはいません</li>
-        )}
-      </ul>
+      {members ? (
+        <MembersList membersInformation={members} />
+      ) : (
+        'メンバーはいません'
+      )}
     </Auth>
   );
 };
