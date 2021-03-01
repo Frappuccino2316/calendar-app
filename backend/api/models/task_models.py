@@ -1,13 +1,5 @@
 from django.db import models
-
-class Team(models.Model):
-    team_name = models.CharField(max_length=50)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-    
-    def __str__(self):
-        return self.team_name
-
+from .team_models import Team
 
 class Task(models.Model):
     STATUS_CHOICES = (
@@ -33,6 +25,3 @@ class Task(models.Model):
     def __str__(self):
         return self.title
     
-class ApplicationToTeam(models.Model):
-    applicant = ForeignKey(Users, on_delete=models.CASCADE)
-    application_team = ForeignKey(Team, on_delete=models.CASCADE)

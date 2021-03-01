@@ -4,7 +4,8 @@ from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from users.models import Users
-from .models.models import Task, Team
+from .models.task_models import Task
+from .models.team_models import Team
 from .serializers.serializers import MyselfSerializer, UserSerializer, TaskSerializer, TeamSerializer
 from .ownpermissions import ProfilePermission
 

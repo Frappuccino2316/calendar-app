@@ -1,5 +1,6 @@
 from django.db import models
-from users.models import models
+from .team_models import Team
+from users.models import Users
 
 class ApplicationToTeam(models.Model):
     applicant = models.ForeignKey(Users, on_delete=models.CASCADE)
