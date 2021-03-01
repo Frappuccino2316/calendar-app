@@ -11,8 +11,4 @@ class Users(AbstractUser):
     
     email = models.EmailField(_('email address'), null=False)
     team_of_affiliation = models.ForeignKey(Team, on_delete=models.SET_NULL, null=True)
-    application_status_to_team = models.CharField(
-        max_length=9,
-        choices=APPLICATION_STATUS,
-        default='unapplied',
-    )
+    
