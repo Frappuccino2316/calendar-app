@@ -1,7 +1,7 @@
 from django.contrib.auth.hashers import make_password
 from rest_framework import serializers
 from api.models import Task, Team
-from users.models import Users
+from users.models.models import Users
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:

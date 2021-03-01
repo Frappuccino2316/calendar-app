@@ -33,3 +33,6 @@ class Task(models.Model):
     def __str__(self):
         return self.title
     
+class ApplicationToTeam(models.Model):
+    applicant = ForeignKey(Users, on_delete=models.CASCADE)
+    application_team = ForeignKey(Team, on_delete=models.CASCADE)
