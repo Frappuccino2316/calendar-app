@@ -1,6 +1,7 @@
 from django.contrib.auth.hashers import make_password
 from rest_framework import serializers
-from api.models import Task, Team
+from api.models.team_models import Team
+from api.models.task_models import Task
 from users.models import Users
 
 class UserSerializer(serializers.ModelSerializer):

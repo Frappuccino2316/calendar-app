@@ -4,8 +4,11 @@ from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from users.models import Users
-from .models import Task, Team
+from .models.task_models import Task
+from .models.team_models import Team
+from .models.application_models import ApplicationToTeam
 from .serializers.serializers import MyselfSerializer, UserSerializer, TaskSerializer, TeamSerializer
+from .serializers.application_serializers import ApplicationToTeamSerializer, ApplicationToTeamCreateSerializer
 from .ownpermissions import ProfilePermission
 
 class UserViewSet(mixins.CreateModelMixin, mixins.UpdateModelMixin, mixins.DestroyModelMixin, viewsets.GenericViewSet):
@@ -80,3 +83,23 @@ class TeamAndMembers(APIView):
             "team": team_data,
             "members": members_data
         })
+
+class ApplicantsViewSet(mixins.RetrieveModelMixin, mixins.UpdateModelMixin, mixins.DestroyModelMixin, mixins.ListModelMixin, viewsets.GenericViewSet):
+    queryset = ApplicationToTeam.objects.all()
+    serializer_class = ApplicationToTeamSerializer
+    authentication_classes = (JWTAuthentication,)
+    permission_classes = (IsAuthenticated,)
+    
+    def get_queryset(self):
+        user = self.request.user
+        return ApplicationToTeam.objects.filter(application_team=user.team_of_affiliation)
+
+class ApplicantCreateViewSet(mixins.CreateModelMixin, viewsets.GenericViewSet):
+    queryset = ApplicationToTeam.objects.all()
+    serializer_class = ApplicationToTeamCreateSerializer
+    authentication_classes = (JWTAuthentication,)
+    permission_classes = (IsAuthenticated,)
+    
+    def get_queryset(self):
+        user = self.request.user
+        return ApplicationToTeam.objects.filter(application_team=user.team_of_affiliation)
