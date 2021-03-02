@@ -6,6 +6,7 @@ import Auth from 'components/Auth';
 import Title from 'components/Title';
 import MembersList from 'components/Teams/MembersList';
 import './Team.css';
+import ApplicationForm from 'components/Teams/ApplicationForm';
 
 type Team = {
   id: number;
@@ -52,6 +53,16 @@ const Teams: React.FC = () => {
       <Auth>
         <Title title="Team" />
         <p>loading...</p>
+      </Auth>
+    );
+  }
+
+  if (!team) {
+    return (
+      <Auth>
+        <Title title="Team" />
+        <h3>チームに所属していません</h3>
+        <ApplicationForm />
       </Auth>
     );
   }
