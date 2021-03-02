@@ -1,5 +1,5 @@
 import React from 'react';
-import { Cookies, useCookies } from 'react-cookie';
+import { useCookies } from 'react-cookie';
 import axios from 'axios';
 import { apiConfig } from 'commons/apiConfig';
 
@@ -20,16 +20,16 @@ const ApplicationForm = () => {
     axios
       .get(`${baseUrl}teams/`, {
         headers: {
-          Authorization: cookie.calendarJWT,
+          Authorization: `JWT ${cookie.calendarJWT}`,
         },
       })
       .then((response) => {
         setTeams(response.data);
       });
-  });
+  }, []);
 
   const teamOptions = teams.map((team) => {
-    <option value={team.team_name}>{team.team_name}</option>;
+    return <option value={team.team_name}>{team.team_name}</option>;
   });
 
   return (
