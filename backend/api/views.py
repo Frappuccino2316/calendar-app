@@ -103,3 +103,13 @@ class ApplicantCreateViewSet(mixins.CreateModelMixin, viewsets.GenericViewSet):
     def get_queryset(self):
         user = self.request.user
         return ApplicationToTeam.objects.filter(application_team=user.team_of_affiliation)
+
+class MyApplicationViewSet(mixins.RetrieveModelMixin, mixins.DestroyModelMixin, mixins.ListModelMixin, viewsets.GenericViewSet):
+    queryset = ApplicationToTeam.objects.all()
+    serializer_class = ApplicationToTeamSerializer
+    authentication_classes = (JWTAuthentication,)
+    permission_classes = (IsAuthenticated,)
+    
+    def get_queryset(self):
+        user = self.request.user
+        return ApplicationToTeam.objects.filter(applicant=user.id)
