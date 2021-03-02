@@ -47,6 +47,6 @@ describe('ApplicationForm', () => {
     mock.onGet(`${baseUrl}teams/`).reply(200, []);
 
     render(<ApplicationForm />);
-    expect(await screen.findByTestId('team_select')).toBeDisabled();
+    expect(await screen.findByText('申請')).toBeDisabled();
   });
 });
