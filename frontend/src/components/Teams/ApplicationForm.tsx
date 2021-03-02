@@ -57,14 +57,7 @@ const ApplicationForm = () => {
     );
   }
 
-  let applicationButton: JSX.Element;
-  if (presenceTeam) {
-    applicationButton = <button>申請</button>;
-  } else {
-    applicationButton = <button disabled>申請</button>;
-  }
-
-  const createApplication = async () => {
+  const createApplication = () => {
     axios
       .post(`${baseUrl}applicant_create/`, {
         headers: {
@@ -73,6 +66,15 @@ const ApplicationForm = () => {
       })
       .then((response) => {});
   };
+
+  let applicationButton: JSX.Element;
+  if (presenceTeam) {
+    applicationButton = (
+      <button onClick={(e) => createApplication()}>申請</button>
+    );
+  } else {
+    applicationButton = <button disabled>申請</button>;
+  }
 
   return (
     <div>
