@@ -42,6 +42,8 @@ class TeamViewSet(viewsets.ModelViewSet):
     permission_classes = (IsAuthenticated,)
     
     def get_queryset(self):
+        if self.request.method == 'GET':
+            return Team.objects.all()
         user = self.request.user
         return Team.objects.filter(id=user.team_of_affiliation.id)
 
