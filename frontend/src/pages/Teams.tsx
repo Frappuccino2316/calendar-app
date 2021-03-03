@@ -5,7 +5,7 @@ import { apiConfig } from 'commons/apiConfig';
 import Auth from 'components/Auth';
 import Title from 'components/Title';
 import MembersList from 'components/Teams/MembersList';
-import './Team.css';
+import './Teams.css';
 import ApplicationForm from 'components/Teams/ApplicationForm';
 
 type Team = {
