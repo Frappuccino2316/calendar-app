@@ -2,6 +2,7 @@ import React from 'react';
 import { useCookies } from 'react-cookie';
 import axios from 'axios';
 import { apiConfig } from 'commons/apiConfig';
+import CancelButton from './CancelButton';
 
 const baseUrl: string | undefined = apiConfig.apiUrl;
 
@@ -12,11 +13,25 @@ type Team = {
   updated_at: string;
 };
 
+type Application = {
+  id: string;
+  applicant: string;
+  application_team: string;
+};
+
 const ApplicationForm = () => {
+  const INITIAL_APPLICATION: Application = {
+    id: '',
+    applicant: '',
+    application_team: '',
+  };
+
   const [teams, setTeams] = React.useState<Team[]>([]);
   const [loading, setLoading] = React.useState<boolean>(true);
   const [targetTeam, setTargetTeam] = React.useState<string>('');
-  const [isApplication, setIsApplication] = React.useState<boolean>(true);
+  const [myApplication, setMyApplication] = React.useState<Application>(
+    INITIAL_APPLICATION
+  );
   const [cookie] = useCookies();
 
   React.useEffect(() => {
@@ -40,13 +55,10 @@ const ApplicationForm = () => {
         },
       })
       .then((response) => {
-        if (response.data.length) {
-          setIsApplication(true);
-          setLoading(false);
-        } else {
-          setIsApplication(false);
-          setLoading(false);
-        }
+        Object.keys(response.data).length
+          ? setMyApplication(response.data[0])
+          : setMyApplication(INITIAL_APPLICATION);
+        setLoading(false);
       });
   }, [cookie]);
 
@@ -81,7 +93,7 @@ const ApplicationForm = () => {
         }
       )
       .then((response) => {
-        setIsApplication(true);
+        setMyApplication(response.data);
       });
   };
 
@@ -98,9 +110,15 @@ const ApplicationForm = () => {
 
   return (
     <div>
-      <h5>チーム所属申請</h5>
-      {isApplication ? (
-        <p>申請中です</p>
+      <h4>チーム所属申請</h4>
+      {myApplication.id !== '' ? (
+        <div>
+          <p>申請中です</p>
+          <CancelButton
+            myApplication={myApplication}
+            setMyApplication={setMyApplication}
+          />
+        </div>
       ) : (
         <div>
           <select name="team" onChange={(e) => setTargetTeam(e.target.value)}>
