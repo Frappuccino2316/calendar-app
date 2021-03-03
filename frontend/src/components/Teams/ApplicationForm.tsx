@@ -57,10 +57,10 @@ const ApplicationForm = () => {
       .then((response) => {
         Object.keys(response.data).length
           ? setMyApplication(response.data[0])
-          : setMyApplication(INITIAL_APPLICATION);
+          : setMyApplication({ id: '', applicant: '', application_team: '' });
         setLoading(false);
       });
-  }, [cookie]);
+  }, [cookie.calendarJWT]);
 
   let teamOptions: JSX.Element[] | JSX.Element = [];
   if (!loading) {
