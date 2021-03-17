@@ -19,6 +19,7 @@ function App() {
           <Route exact path="/tasks" component={Tasks} />
           <Route exact path="/teams" component={Teams} />
           <Route exact path="/settings" component={Settings} />
+          <Route default component={Home} />
         </Switch>
       </Router>
     </div>
