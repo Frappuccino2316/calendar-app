@@ -5,6 +5,7 @@ import { apiConfig } from 'commons/apiConfig';
 import Auth from 'components/Auth';
 import Title from 'components/Title';
 import MembersList from 'components/Teams/MembersList';
+import InvitationForm from 'components/Teams/InvitationForm';
 import './Teams.css';
 
 type Team = {
@@ -85,7 +86,7 @@ const Teams: React.FC = () => {
       <Auth>
         <Title title="Team" />
         <h3>チームに所属していません</h3>
-        {myApplication && <p>招待</p>}
+        {myApplication && <InvitationForm />}
       </Auth>
     );
   }
