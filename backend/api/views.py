@@ -1,5 +1,6 @@
-from rest_framework import generics, mixins, viewsets, generics
+from rest_framework import generics, mixins, viewsets, generics, status
 from rest_framework.views import APIView
+from rest_framework.generics import CreateAPIView
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework_simplejwt.authentication import JWTAuthentication
@@ -9,6 +10,7 @@ from .models.team_models import Team
 from .models.application_models import ApplicationToTeam
 from .serializers.serializers import MyselfSerializer, UserSerializer, TaskSerializer, TeamSerializer
 from .serializers.application_serializers import ApplicationToTeamSerializer, ApplicationToTeamCreateSerializer
+from .serializers.invitation_create_serializer import InvitationCreateSerializer
 from .ownpermissions import ProfilePermission
 
 class UserViewSet(mixins.CreateModelMixin, mixins.UpdateModelMixin, mixins.DestroyModelMixin, viewsets.GenericViewSet):
@@ -115,3 +117,32 @@ class MyApplicationViewSet(mixins.RetrieveModelMixin, mixins.DestroyModelMixin, 
     def get_queryset(self):
         user = self.request.user
         return ApplicationToTeam.objects.filter(applicant=user.id)
+
+class InvitationCreateViewSet(mixins.CreateModelMixin, viewsets.GenericViewSet):
+    queryset = ApplicationToTeam.objects.all()
+    serializer_class = InvitationCreateSerializer
+    authentication_classes = (JWTAuthentication,)
+    permission_classes = (IsAuthenticated,)
+    
+    def get_queryset(self):
+        user = self.request.user
+        return ApplicationToTeam.objects.filter(application_team=user.team_of_affiliation)
+
+class InvitationCreateAPIView(APIView):
+    authentication_classes = (JWTAuthentication,)
+    permission_classes = (IsAuthenticated,)
+    
+    def post(self, request):
+        user_team = self.request.user.team_of_affiliation
+        email = request.data['email']
+        applicant = Users.objects.get(email=email)
+        
+        invitation = {
+            'applicant': applicant.id,
+            'application_team': user_team.id,
+        }
+        invitation_serializer = InvitationCreateSerializer(data=invitation)
+        invitation_serializer.is_valid()
+        invitation_serializer.save()
+        
+        return Response(invitation_serializer.data, status=status.HTTP_201_CREATED)
