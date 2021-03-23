@@ -2,7 +2,7 @@ from rest_framework import serializers
 from api.models.application_models import ApplicationToTeam
 from users.models import Users
 
-class ApplicationToTeamCreateSerializer(serializers.ModelSerializer):
+class InvitationCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = ApplicationToTeam
         fields = ('id', 'applicant')
