@@ -21,13 +21,25 @@ const InvitationList: React.FC<Props> = ({ invitations }) => {
   const usersList = invitations.map((invitation) => {
     <tr>
       <td>{invitation.applicant.username}</td>
+      <td>{invitation.applicant.email}</td>
       <td>
         <button onClick={() => console.log('取消')}>取消</button>
       </td>
     </tr>;
   });
 
-  return <div></div>;
+  return (
+    <table>
+      <thead>
+        <tr>
+          <th>ユーザー名</th>
+          <th>メールアドレス</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>{usersList}</tbody>
+    </table>
+  );
 };
 
 export default InvitationList;
