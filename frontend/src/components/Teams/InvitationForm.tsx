@@ -7,6 +7,7 @@ const baseUrl: string | undefined = apiConfig.apiUrl;
 
 const InvitationForm = () => {
   const [email, setEmail] = React.useState<string>('');
+  const [isInvitation, setIsInvitation] = React.useState<boolean>(false);
   const [cookie] = useCookies();
 
   const invite = () => {
@@ -22,8 +23,8 @@ const InvitationForm = () => {
           },
         }
       )
-      .then((res) => {
-        console.log('招待しました');
+      .then(() => {
+        setIsInvitation(true);
       });
   };
 
@@ -37,6 +38,12 @@ const InvitationForm = () => {
         }
       />
       <button onClick={() => invite()}>招待</button>
+      {isInvitation && (
+        <div>
+          <span>招待しました</span>
+          <button onClick={() => setIsInvitation(false)}>×</button>
+        </div>
+      )}
     </div>
   );
 };
