@@ -31,11 +31,6 @@ describe('ApplicationForm', () => {
 
     mock.onGet(`${baseUrl}my_application/`).reply(200, []);
 
-    // mock.onPost(`${baseUrl}applicants_create/`).reply(201, {
-    //   id: 7,
-    //   application_team: 1,
-    // });
-
     render(<ApplicationForm />);
     expect(await screen.findByText('Disney')).toBeTruthy();
     userEvent.click(await screen.findByText('Disney'));
