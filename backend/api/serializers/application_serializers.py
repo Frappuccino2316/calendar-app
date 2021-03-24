@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from api.models.application_models import ApplicationToTeam
+from api.serializers.serializers import UserSerializer
 
 class ApplicationToTeamSerializer(serializers.ModelSerializer):
     applicant = UserSerializer(many=False, read_only=True)
