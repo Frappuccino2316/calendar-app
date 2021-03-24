@@ -146,3 +146,20 @@ class InvitationCreateAPIView(APIView):
         invitation_serializer.save()
         
         return Response(invitation_serializer.data, status=status.HTTP_201_CREATED)
+
+class MyInvitationDeleteAPIView(APIView):
+    authentication_classes = (JWTAuthentication,)
+    permission_classes = (IsAuthenticated,)
+    
+    def get_object(self, pk):
+        try:
+            return ApplicationToTeam.objects.get(pk=pk)
+        except :
+            raise Http404
+    
+    def delete(self, request, pk, format=None):
+        invitation = self.get_object(pk)
+        if invitation.applicant == self.request.user:
+            invitation.delete()
+            return Response(status=status.HTTP_204_NO_CONTENT)
+        return Response(status=status.HTTP_404_NOT_FOUND)
