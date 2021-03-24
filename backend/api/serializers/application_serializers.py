@@ -2,6 +2,8 @@ from rest_framework import serializers
 from api.models.application_models import ApplicationToTeam
 
 class ApplicationToTeamSerializer(serializers.ModelSerializer):
+    applicant = UserSerializer(many=False, read_only=True)
+    
     class Meta:
         model = ApplicationToTeam
         fields = ('id', 'applicant', 'application_team')
