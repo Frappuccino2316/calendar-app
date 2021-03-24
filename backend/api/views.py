@@ -117,16 +117,6 @@ class MyApplicationViewSet(mixins.RetrieveModelMixin, mixins.DestroyModelMixin, 
         user = self.request.user
         return ApplicationToTeam.objects.filter(applicant=user.id)
 
-class InvitationCreateViewSet(mixins.CreateModelMixin, viewsets.GenericViewSet):
-    queryset = ApplicationToTeam.objects.all()
-    serializer_class = InvitationCreateSerializer
-    authentication_classes = (JWTAuthentication,)
-    permission_classes = (IsAuthenticated,)
-    
-    def get_queryset(self):
-        user = self.request.user
-        return ApplicationToTeam.objects.filter(application_team=user.team_of_affiliation)
-
 class InvitationCreateAPIView(APIView):
     authentication_classes = (JWTAuthentication,)
     permission_classes = (IsAuthenticated,)
