@@ -1,0 +1,12 @@
+table,
+td,
+tr {
+  border: 2px #808080 solid;
+}
+
+.invitation_table {
+  /* margin: 0 auto;
+  padding: 0 auto; */
+  display: inline-block;
+  text-align: center;
+}
