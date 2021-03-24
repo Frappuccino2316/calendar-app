@@ -54,9 +54,6 @@ const Teams: React.FC = () => {
         if (belongToTeam) {
           setTeam(res.data.team);
           setMembers(res.data.members);
-          setLoading(false);
-        } else {
-          setLoading(false);
         }
       });
 
@@ -69,9 +66,6 @@ const Teams: React.FC = () => {
       .then((res) => {
         if (res.data[0] !== undefined) {
           setMyApplication(res.data[0]);
-          setLoading(false);
-        } else {
-          setLoading(false);
         }
       });
 
@@ -105,7 +99,7 @@ const Teams: React.FC = () => {
       <Auth>
         <Title title="Team" />
         <h3>チームに所属していません</h3>
-        {myApplication && <InvitationForm />}
+        {myApplication && <p>招待あり</p>}
       </Auth>
     );
   }
