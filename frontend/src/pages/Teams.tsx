@@ -5,8 +5,9 @@ import { apiConfig } from 'commons/apiConfig';
 import Auth from 'components/Auth';
 import Title from 'components/Title';
 import MembersList from 'components/Teams/MembersList';
+import InvitationForm from 'components/Teams/InvitationForm';
+import InvitationList from 'components/Teams/InvitationList';
 import './Teams.css';
-import ApplicationForm from 'components/Teams/ApplicationForm';
 
 type Team = {
   id: number;
@@ -22,10 +23,22 @@ type User = {
   team_of_affiliation: number;
 };
 
+type Application = {
+  id: number;
+  applicant: User;
+  application_team: number;
+};
+
 const Teams: React.FC = () => {
   const [loading, setLoading] = React.useState(true);
   const [team, setTeam] = React.useState<Team | null>(null);
   const [members, setMembers] = React.useState<User[] | null>(null);
+  const [myApplication, setMyApplication] = React.useState<Application | null>(
+    null
+  );
+  const [applicants, setApplicants] = React.useState<Application[] | null>(
+    null
+  );
   const [cookie] = useCookies();
   const baseUrl = apiConfig.apiUrl;
 
@@ -41,6 +54,30 @@ const Teams: React.FC = () => {
         if (belongToTeam) {
           setTeam(res.data.team);
           setMembers(res.data.members);
+        }
+      });
+
+    axios
+      .get(`${baseUrl}my_application/`, {
+        headers: {
+          Authorization: `JWT ${cookie.calendarJWT}`,
+        },
+      })
+      .then((res) => {
+        if (res.data[0] !== undefined) {
+          setMyApplication(res.data[0]);
+        }
+      });
+
+    axios
+      .get(`${baseUrl}applicants/`, {
+        headers: {
+          Authorization: `JWT ${cookie.calendarJWT}`,
+        },
+      })
+      .then((res) => {
+        if (res.data[0] !== undefined) {
+          setApplicants(res.data);
           setLoading(false);
         } else {
           setLoading(false);
@@ -62,7 +99,7 @@ const Teams: React.FC = () => {
       <Auth>
         <Title title="Team" />
         <h3>チームに所属していません</h3>
-        <ApplicationForm />
+        {myApplication && <p>招待あり</p>}
       </Auth>
     );
   }
@@ -71,7 +108,15 @@ const Teams: React.FC = () => {
     <Auth>
       <Title title="Team" />
       <h3>所属チーム</h3>
-      <p>{team ? team.team_name : 'チームに所属していません'}</p>
+      <p>{team.team_name}</p>
+      <h3>招待</h3>
+      <InvitationForm />
+      <h3>招待中ユーザー</h3>
+      {applicants ? (
+        <InvitationList invitations={applicants} />
+      ) : (
+        <p>招待中のユーザーはいません</p>
+      )}
       <h5>所属メンバー</h5>
       {members ? (
         <MembersList membersInformation={members} />

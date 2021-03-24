@@ -1,4 +1,4 @@
-from rest_framework import generics, mixins, viewsets, generics
+from rest_framework import generics, mixins, viewsets, generics, status
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated, AllowAny
@@ -9,6 +9,7 @@ from .models.team_models import Team
 from .models.application_models import ApplicationToTeam
 from .serializers.serializers import MyselfSerializer, UserSerializer, TaskSerializer, TeamSerializer
 from .serializers.application_serializers import ApplicationToTeamSerializer, ApplicationToTeamCreateSerializer
+from .serializers.invitation_create_serializer import InvitationCreateSerializer
 from .ownpermissions import ProfilePermission
 
 class UserViewSet(mixins.CreateModelMixin, mixins.UpdateModelMixin, mixins.DestroyModelMixin, viewsets.GenericViewSet):
@@ -115,3 +116,40 @@ class MyApplicationViewSet(mixins.RetrieveModelMixin, mixins.DestroyModelMixin, 
     def get_queryset(self):
         user = self.request.user
         return ApplicationToTeam.objects.filter(applicant=user.id)
+
+class InvitationCreateAPIView(APIView):
+    authentication_classes = (JWTAuthentication,)
+    permission_classes = (IsAuthenticated,)
+    
+    def post(self, request):
+        user_team = self.request.user.team_of_affiliation
+        email = request.data['email']
+        applicant = Users.objects.get(email=email)
+        
+        invitation = {
+            'applicant': applicant.id,
+            'application_team': user_team.id,
+        }
+        invitation_serializer = InvitationCreateSerializer(data=invitation)
+        invitation_serializer.is_valid()
+        invitation_serializer.save()
+        
+        return Response(invitation_serializer.data, status=status.HTTP_201_CREATED)
+
+class MyInvitationDeleteAPIView(APIView):
+    authentication_classes = (JWTAuthentication,)
+    permission_classes = (IsAuthenticated,)
+    
+    def get_object(self, pk):
+        try:
+            return ApplicationToTeam.objects.get(pk=pk)
+        except :
+            raise Http404
+    
+    def delete(self, request, pk, format=None):
+        invitation = self.get_object(pk)
+        # 削除できるのは招待されたユーザーか、招待したチームに所属するメンバーのみ
+        if (invitation.applicant == self.request.user) or (invitation.application_team == self.request.user.team_of_affiliation):
+            invitation.delete()
+            return Response(status=status.HTTP_204_NO_CONTENT)
+        return Response(status=status.HTTP_404_NOT_FOUND)
