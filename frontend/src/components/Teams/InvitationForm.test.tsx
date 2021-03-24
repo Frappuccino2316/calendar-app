@@ -22,7 +22,8 @@ describe('ApplicationForm', () => {
     mock.onPost(`${baseUrl}invitation_create/`).reply(201);
 
     render(<InvitationForm />);
-    userEvent.click(await screen.findByText('招待'));
+    userEvent.type(screen.getByRole('textbox'), 'test1@example.com');
+    userEvent.click(screen.getByText('招待'));
     expect(await screen.findByText('招待しました')).toBeTruthy();
   });
 });
