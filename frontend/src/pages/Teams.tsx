@@ -6,6 +6,7 @@ import Auth from 'components/Auth';
 import Title from 'components/Title';
 import MembersList from 'components/Teams/MembersList';
 import InvitationForm from 'components/Teams/InvitationForm';
+import InvitationList from 'components/Teams/InvitationList';
 import './Teams.css';
 
 type Team = {
@@ -24,7 +25,7 @@ type User = {
 
 type Application = {
   id: number;
-  applicant: number;
+  applicant: User;
   application_team: number;
 };
 
@@ -33,6 +34,9 @@ const Teams: React.FC = () => {
   const [team, setTeam] = React.useState<Team | null>(null);
   const [members, setMembers] = React.useState<User[] | null>(null);
   const [myApplication, setMyApplication] = React.useState<Application | null>(
+    null
+  );
+  const [applicants, setApplicants] = React.useState<Application[] | null>(
     null
   );
   const [cookie] = useCookies();
@@ -70,6 +74,21 @@ const Teams: React.FC = () => {
           setLoading(false);
         }
       });
+
+    axios
+      .get(`${baseUrl}applicants/`, {
+        headers: {
+          Authorization: `JWT ${cookie.calendarJWT}`,
+        },
+      })
+      .then((res) => {
+        if (res.data[0] !== undefined) {
+          setApplicants(res.data);
+          setLoading(false);
+        } else {
+          setLoading(false);
+        }
+      });
   }, [baseUrl, cookie]);
 
   if (loading) {
@@ -98,6 +117,12 @@ const Teams: React.FC = () => {
       <p>{team.team_name}</p>
       <h3>招待</h3>
       <InvitationForm />
+      <h3>招待中ユーザー</h3>
+      {applicants ? (
+        <InvitationList invitations={applicants} />
+      ) : (
+        <p>招待中のユーザーはいません</p>
+      )}
       <h5>所属メンバー</h5>
       {members ? (
         <MembersList membersInformation={members} />
