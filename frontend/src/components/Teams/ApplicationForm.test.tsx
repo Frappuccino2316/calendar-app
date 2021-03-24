@@ -63,11 +63,6 @@ describe('ApplicationForm', () => {
       },
     ]);
 
-    // mock.onPost(`${baseUrl}applicants_create/`).reply(201, {
-    //   id: 7,
-    //   application_team: 1,
-    // });
-
     render(<ApplicationForm />);
     expect(await screen.queryByText('Disney')).not.toBeTruthy();
     expect(await screen.findByText('申請中です')).toBeTruthy();
