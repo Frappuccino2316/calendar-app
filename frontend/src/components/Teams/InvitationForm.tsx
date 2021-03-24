@@ -7,8 +7,25 @@ const baseUrl: string | undefined = apiConfig.apiUrl;
 
 const InvitationForm = () => {
   const [email, setEmail] = React.useState<string>('');
+  const [cookie] = useCookies();
 
-  const invite = (emailAddress: String) => {};
+  const invite = () => {
+    axios
+      .post(
+        `${baseUrl}invitation_create/`,
+        {
+          email: email,
+        },
+        {
+          headers: {
+            Authorization: `JWT ${cookie.calendarJWT}`,
+          },
+        }
+      )
+      .then((res) => {
+        console.log('招待しました');
+      });
+  };
 
   return (
     <div>
@@ -19,7 +36,7 @@ const InvitationForm = () => {
           setEmail(e.target.value)
         }
       />
-      <button onClick={() => console.log('招待しました')}>招待</button>
+      <button onClick={() => invite()}>招待</button>
     </div>
   );
 };

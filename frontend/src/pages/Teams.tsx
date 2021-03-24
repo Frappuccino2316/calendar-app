@@ -96,6 +96,8 @@ const Teams: React.FC = () => {
       <Title title="Team" />
       <h3>所属チーム</h3>
       <p>{team.team_name}</p>
+      <h3>招待</h3>
+      <InvitationForm />
       <h5>所属メンバー</h5>
       {members ? (
         <MembersList membersInformation={members} />
