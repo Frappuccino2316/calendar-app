@@ -159,7 +159,8 @@ class MyInvitationDeleteAPIView(APIView):
     
     def delete(self, request, pk, format=None):
         invitation = self.get_object(pk)
-        if invitation.applicant == self.request.user:
+        # 削除できるのは招待されたユーザーか、招待したチームに所属するメンバーのみ
+        if (invitation.applicant == self.request.user) or (invitation.application_team == self.request.user.team_of_affiliation):
             invitation.delete()
             return Response(status=status.HTTP_204_NO_CONTENT)
         return Response(status=status.HTTP_404_NOT_FOUND)
