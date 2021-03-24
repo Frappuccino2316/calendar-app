@@ -2,6 +2,7 @@ import React from 'react';
 import { useCookies } from 'react-cookie';
 import axios from 'axios';
 import { apiConfig } from 'commons/apiConfig';
+import './InvitationList.css';
 
 type User = {
   id: number;
@@ -38,17 +39,19 @@ const InvitationList: React.FC<Props> = ({ invitations }) => {
   };
 
   const usersList = invitations.map((invitation) => {
-    <tr>
-      <td>{invitation.applicant.username}</td>
-      <td>{invitation.applicant.email}</td>
-      <td>
-        <button onClick={() => console.log('取消')}>取消</button>
-      </td>
-    </tr>;
+    return (
+      <tr key={invitation.id}>
+        <td>{invitation.applicant.username}</td>
+        <td>{invitation.applicant.email}</td>
+        <td>
+          <button onClick={() => deleteInvitation(invitation.id)}>取消</button>
+        </td>
+      </tr>
+    );
   });
 
   return (
-    <div>
+    <div className="invitation_table">
       {isDelete && <p>招待を取り消しました</p>}
       <table>
         <thead>
