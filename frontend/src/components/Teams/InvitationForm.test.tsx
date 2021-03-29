@@ -15,7 +15,7 @@ afterEach(cleanup);
 describe('ApplicationForm', () => {
   it('Should display team name and can click select box', async () => {
     render(<InvitationForm />);
-    expect(screen.findByText('招待')).toBeTruthy();
+    expect(screen.getByText('招待')).toBeTruthy();
   });
 
   // it('Post Invitation', async () => {
