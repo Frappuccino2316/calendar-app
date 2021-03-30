@@ -3,11 +3,11 @@ import { createSlice } from '@reduxjs/toolkit';
 export const userSlice = createSlice({
   name: 'user',
   initialState: {
-    id: -1,
+    id: '',
     username: '',
     email: '',
     teamOfAffiliation: {
-      id: -1,
+      id: '',
       teamName: '',
       createdAt: '',
       updatedAt: '',
@@ -19,11 +19,11 @@ export const userSlice = createSlice({
     },
     reset: (state) => {
       state = {
-        id: -1,
+        id: '',
         username: '',
         email: '',
         teamOfAffiliation: {
-          id: -1,
+          id: '',
           teamName: '',
           createdAt: '',
           updatedAt: '',
