@@ -1,14 +1,7 @@
 import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import { cleanup, render, screen } from '@testing-library/react';
-// import axios from 'axios';
-// import MockAdapter from 'axios-mock-adapter';
-// import { apiConfig } from 'commons/apiConfig';
 import Header from 'components/Header';
-
-// const baseUrl: string | undefined = apiConfig.apiUrl;
-
-// const mock = new MockAdapter(axios);
 
 afterEach(cleanup);
 
