@@ -1,5 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { useCookies } from 'react-cookie';
+import verifyToken from 'commons/auth/verifyToken';
 import Home from 'pages/Home';
 import Login from 'pages/Login';
 import Tasks from 'pages/Tasks';
@@ -9,10 +11,23 @@ import Header from 'components/Header';
 import './App.css';
 
 function App() {
+  const [isLogin, setIsLogin] = React.useState(false);
+  const [cookie] = useCookies();
+
+  React.useEffect(() => {
+    const checkAlreadyAuthenticated = async () => {
+      if (cookie.hasOwnProperty('calendarJWT')) {
+        const isAuthenticated = await verifyToken(cookie.calendarJWT);
+        isAuthenticated && setIsLogin(isAuthenticated);
+      }
+    };
+    checkAlreadyAuthenticated();
+  }, [cookie]);
+
   return (
     <div className="App">
       <Router>
-        <Header />
+        <Header isLogin={isLogin} setIsLogin={setIsLogin} />
         <Switch>
           <Route exact path="/login" component={Login} />
           <Route exact path="/" component={Home} />
