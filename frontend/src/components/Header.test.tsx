@@ -1,44 +1,41 @@
 import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import { cleanup, render, screen } from '@testing-library/react';
-import axios from 'axios';
-import MockAdapter from 'axios-mock-adapter';
-import { apiConfig } from 'commons/apiConfig';
+// import axios from 'axios';
+// import MockAdapter from 'axios-mock-adapter';
+// import { apiConfig } from 'commons/apiConfig';
 import Header from 'components/Header';
 
-const baseUrl: string | undefined = apiConfig.apiUrl;
+// const baseUrl: string | undefined = apiConfig.apiUrl;
 
-const mock = new MockAdapter(axios);
+// const mock = new MockAdapter(axios);
 
 afterEach(cleanup);
 
 describe('Header', () => {
   it('Should display link by auth user', async () => {
-    mock.onPost(`${baseUrl}auth/jwt/verify`).reply(200, {});
+    const setIsLogin = (param: boolean) => {};
     render(
       <BrowserRouter>
-        <Header />
+        <Header isLogin={true} setIsLogin={setIsLogin} />
       </BrowserRouter>
     );
     expect(screen.getByText('Scrum Calendar')).toBeTruthy();
-    await expect(screen.findByText('Task')).toBeTruthy();
-    await expect(screen.findByText('Team')).toBeTruthy();
-    await expect(screen.findByText('Setting')).toBeTruthy();
+    expect(screen.getByText('Task')).toBeTruthy();
+    expect(screen.getByText('Team')).toBeTruthy();
+    expect(screen.getByText('Setting')).toBeTruthy();
   });
 
   it('Should not display link by not auth user', async () => {
-    mock.onPost(`${baseUrl}auth/jwt/verify`).reply(401, {
-      detail: 'Token is invalid or expired',
-      code: 'token_not_valid',
-    });
+    const setIsLogin = (param: boolean) => {};
     render(
       <BrowserRouter>
-        <Header />
+        <Header isLogin={false} setIsLogin={setIsLogin} />
       </BrowserRouter>
     );
     expect(screen.getByText('Scrum Calendar')).toBeTruthy();
-    await expect(screen.queryByText('Task')).toBeNull();
-    await expect(screen.queryByText('Team')).toBeNull();
-    await expect(screen.queryByText('Setting')).toBeNull();
+    expect(screen.queryByText('Task')).not.toBeTruthy();
+    expect(screen.queryByText('Team')).not.toBeTruthy();
+    expect(screen.queryByText('Setting')).not.toBeTruthy();
   });
 });
