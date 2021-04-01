@@ -8,9 +8,9 @@ type Props = {
 
 const Button: React.FC<Props> = ({ text, onClickFunction }) => {
   return (
-    <a className="btn btn--orange" onClick={onClickFunction}>
+    <div className="btn btn--orange" onClick={onClickFunction}>
       {text}
-    </a>
+    </div>
   );
 };
 
