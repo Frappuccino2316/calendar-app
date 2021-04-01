@@ -1,0 +1,15 @@
+.btn--orange,
+a.btn--orange {
+  display: inline-block;
+  height: 26px;
+  width: 65px;
+  padding: 5px;
+  color: #fff;
+  background-color: #eb6100;
+}
+.btn--orange:hover,
+a.btn--orange:hover {
+  color: #fff;
+  background: #f56500;
+  cursor: pointer;
+}
