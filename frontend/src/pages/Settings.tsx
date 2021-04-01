@@ -5,6 +5,7 @@ import { apiConfig } from 'commons/apiConfig';
 import Auth from 'components/Auth';
 import Title from 'components/Title';
 import TextBox from 'components/TextBox';
+import Button from 'components/utils/button/Button';
 
 const Settings: React.FC = () => {
   const [username, setUsername] = React.useState<string>('');
@@ -55,7 +56,7 @@ const Settings: React.FC = () => {
       <span>メールアドレス</span>
       <TextBox value={email} setValueFunction={setEmail} />
       <br />
-      <button onClick={() => updateMyself()}>保存</button>
+      <Button text="保存" onClickFunction={() => updateMyself()} />
     </Auth>
   );
 };
