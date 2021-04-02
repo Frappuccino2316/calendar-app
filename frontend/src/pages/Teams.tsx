@@ -89,7 +89,21 @@ const Teams: React.FC = () => {
   }, [baseUrl, cookie]);
 
   const createNewTeam = async () => {
-    console.log('create new team');
+    axios
+      .post(
+        `${baseUrl}teams/`,
+        {
+          team_name: newTeamName,
+        },
+        {
+          headers: {
+            Authorization: `JWT ${cookie.calendarJWT}`,
+          },
+        }
+      )
+      .then((res) => {
+        console.log('作りました');
+      });
   };
 
   if (loading) {
