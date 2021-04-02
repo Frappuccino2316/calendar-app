@@ -4,9 +4,11 @@ import axios from 'axios';
 import { apiConfig } from 'commons/apiConfig';
 import Auth from 'components/Auth';
 import Title from 'components/Title';
+import TextBox from 'components/TextBox';
 import MembersList from 'components/Teams/MembersList';
 import InvitationForm from 'components/Teams/InvitationForm';
 import InvitationList from 'components/Teams/InvitationList';
+import Button from 'components/utils/button/Button';
 import './Teams.css';
 
 type Team = {
@@ -39,6 +41,7 @@ const Teams: React.FC = () => {
   const [applicants, setApplicants] = React.useState<Application[] | null>(
     null
   );
+  const [newTeamName, setNewTeamName] = React.useState<string>('');
   const [cookie] = useCookies();
   const baseUrl = apiConfig.apiUrl;
 
@@ -85,6 +88,10 @@ const Teams: React.FC = () => {
       });
   }, [baseUrl, cookie]);
 
+  const createNewTeam = async () => {
+    console.log('create new team');
+  };
+
   if (loading) {
     return (
       <Auth>
@@ -100,6 +107,8 @@ const Teams: React.FC = () => {
         <Title title="Team" />
         <h3>チームに所属していません</h3>
         {myApplication && <p>招待あり</p>}
+        <TextBox value={newTeamName} setValueFunction={setNewTeamName} />
+        <Button text="作成" onClickFunction={createNewTeam} />
       </Auth>
     );
   }
