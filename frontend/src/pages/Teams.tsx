@@ -123,8 +123,8 @@ const Teams: React.FC = () => {
         },
       }
     );
-
     dispatch(getMyself(cookie.calendarJWT));
+    setTeam(res.data);
   };
 
   if (loading) {
