@@ -5,7 +5,7 @@ import { baseUrl } from 'constants/constants';
 export const getMyself = createAsyncThunk('user/get', async (token: string) => {
   const res = await axios.get(`${baseUrl}myself/`, {
     headers: {
-      Authorization: token,
+      Authorization: `JWT ${token}`,
     },
   });
   return res.data;
@@ -60,7 +60,7 @@ export const userSlice = createSlice({
     builder.addCase(getMyself.fulfilled, (state, action) => {
       return {
         ...state,
-        users: action.payload,
+        ...action.payload,
       };
     });
   },
