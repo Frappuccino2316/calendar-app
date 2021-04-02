@@ -7,7 +7,7 @@ from users.models import Users
 from .models.task_models import Task
 from .models.team_models import Team
 from .models.application_models import ApplicationToTeam
-from .serializers.serializers import MyselfSerializer, UserSerializer, TaskSerializer, TeamSerializer
+from .serializers.serializers import MyselfSerializer, MyselfUpdateSerializer, UserSerializer, TaskSerializer, TeamSerializer
 from .serializers.application_serializers import ApplicationToTeamSerializer, ApplicationToTeamCreateSerializer
 from .serializers.invitation_create_serializer import InvitationCreateSerializer
 from .ownpermissions import ProfilePermission
@@ -20,6 +20,14 @@ class UserViewSet(mixins.CreateModelMixin, mixins.UpdateModelMixin, mixins.Destr
 
 class ManageUserView(generics.RetrieveUpdateAPIView):
     serializer_class = MyselfSerializer
+    authentication_classes = (JWTAuthentication,)
+    permission_classes = (IsAuthenticated,)
+    
+    def get_object(self):
+        return self.request.user
+
+class MyselfUpdateAPIView(generics.RetrieveUpdateAPIView):
+    serializer_class = MyselfUpdateSerializer
     authentication_classes = (JWTAuthentication,)
     permission_classes = (IsAuthenticated,)
     
