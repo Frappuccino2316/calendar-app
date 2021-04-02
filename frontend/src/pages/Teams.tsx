@@ -109,15 +109,13 @@ const Teams: React.FC = () => {
       }
     );
 
-    console.log('チームを作りました');
-
     await axios.put(
-      `${baseUrl}users/${user.id}/`,
+      `${baseUrl}update_myself/`,
       {
         id: user.id,
         username: user.username,
         email: user.email,
-        team_of_affiliation: res.data,
+        team_of_affiliation: res.data.id,
       },
       {
         headers: {
