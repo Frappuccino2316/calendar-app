@@ -44,6 +44,9 @@ const Teams: React.FC = () => {
     null
   );
   const [newTeamName, setNewTeamName] = React.useState<string>('');
+  const [wasCreateNewTeam, setWasCreateNewTeam] = React.useState<boolean>(
+    false
+  );
   const [cookie] = useCookies();
   const baseUrl = apiConfig.apiUrl;
   const user = useAppSelector((state) => state.user);
@@ -125,6 +128,7 @@ const Teams: React.FC = () => {
     );
     dispatch(getMyself(cookie.calendarJWT));
     setTeam(res.data);
+    setWasCreateNewTeam(true);
   };
 
   if (loading) {
@@ -152,6 +156,7 @@ const Teams: React.FC = () => {
     <Auth>
       <Title title="Team" />
       <h3>所属チーム</h3>
+      {wasCreateNewTeam && <p>チームを作成しました</p>}
       <p>{team.team_name}</p>
       <h3>招待</h3>
       <InvitationForm />
