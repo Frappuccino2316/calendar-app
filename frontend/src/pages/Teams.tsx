@@ -2,11 +2,15 @@ import React from 'react';
 import { useCookies } from 'react-cookie';
 import axios from 'axios';
 import { apiConfig } from 'commons/apiConfig';
+import { useAppSelector, useAppDispatch } from 'app/hooks';
+import { getMyself } from 'slices/user/userSlice';
 import Auth from 'components/Auth';
 import Title from 'components/Title';
+import TextBox from 'components/TextBox';
 import MembersList from 'components/Teams/MembersList';
 import InvitationForm from 'components/Teams/InvitationForm';
 import InvitationList from 'components/Teams/InvitationList';
+import Button from 'components/utils/button/Button';
 import './Teams.css';
 
 type Team = {
@@ -39,8 +43,14 @@ const Teams: React.FC = () => {
   const [applicants, setApplicants] = React.useState<Application[] | null>(
     null
   );
+  const [newTeamName, setNewTeamName] = React.useState<string>('');
+  const [wasCreateNewTeam, setWasCreateNewTeam] = React.useState<boolean>(
+    false
+  );
   const [cookie] = useCookies();
   const baseUrl = apiConfig.apiUrl;
+  const user = useAppSelector((state) => state.user);
+  const dispatch = useAppDispatch();
 
   React.useEffect(() => {
     axios
@@ -85,6 +95,42 @@ const Teams: React.FC = () => {
       });
   }, [baseUrl, cookie]);
 
+  React.useEffect(() => {
+    dispatch(getMyself(cookie.calendarJWT));
+  }, [cookie.calendarJWT, dispatch]);
+
+  const createNewTeam = async () => {
+    const res = await axios.post(
+      `${baseUrl}teams/`,
+      {
+        team_name: newTeamName,
+      },
+      {
+        headers: {
+          Authorization: `JWT ${cookie.calendarJWT}`,
+        },
+      }
+    );
+
+    await axios.put(
+      `${baseUrl}update_myself/`,
+      {
+        id: user.id,
+        username: user.username,
+        email: user.email,
+        team_of_affiliation: res.data.id,
+      },
+      {
+        headers: {
+          Authorization: `JWT ${cookie.calendarJWT}`,
+        },
+      }
+    );
+    dispatch(getMyself(cookie.calendarJWT));
+    setTeam(res.data);
+    setWasCreateNewTeam(true);
+  };
+
   if (loading) {
     return (
       <Auth>
@@ -100,6 +146,8 @@ const Teams: React.FC = () => {
         <Title title="Team" />
         <h3>チームに所属していません</h3>
         {myApplication && <p>招待あり</p>}
+        <TextBox value={newTeamName} setValueFunction={setNewTeamName} />
+        <Button text="作成" onClickFunction={createNewTeam} />
       </Auth>
     );
   }
@@ -108,6 +156,7 @@ const Teams: React.FC = () => {
     <Auth>
       <Title title="Team" />
       <h3>所属チーム</h3>
+      {wasCreateNewTeam && <p>チームを作成しました</p>}
       <p>{team.team_name}</p>
       <h3>招待</h3>
       <InvitationForm />
