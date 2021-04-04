@@ -11,28 +11,25 @@ export const getMyself = createAsyncThunk('user/get', async (token: string) => {
   return res.data;
 });
 
+type Team = {
+  id: string;
+  teamName: string;
+  createdAt: string;
+  updatedAt: string;
+};
+
 type User = {
   id: string;
   username: string;
   email: string;
-  teamOfAffiliation: {
-    id: string;
-    teamName: string;
-    createdAt: string;
-    updatedAt: string;
-  };
+  team_of_affiliation: Team | null;
 };
 
 const initialState: User = {
   id: '',
   username: '',
   email: '',
-  teamOfAffiliation: {
-    id: '',
-    teamName: '',
-    createdAt: '',
-    updatedAt: '',
-  },
+  team_of_affiliation: null,
 };
 
 export const userSlice = createSlice({
@@ -47,7 +44,7 @@ export const userSlice = createSlice({
         id: '',
         username: '',
         email: '',
-        teamOfAffiliation: {
+        team_of_affiliation: {
           id: '',
           teamName: '',
           createdAt: '',
