@@ -2,6 +2,8 @@ import React from 'react';
 import { useCookies } from 'react-cookie';
 import axios from 'axios';
 import { apiConfig } from 'commons/apiConfig';
+import { useAppSelector, useAppDispatch } from 'app/hooks';
+import { getMyself } from 'slices/user/userSlice';
 import Auth from 'components/Auth';
 import Title from 'components/Title';
 import TextBox from 'components/TextBox';
@@ -44,6 +46,8 @@ const Teams: React.FC = () => {
   const [newTeamName, setNewTeamName] = React.useState<string>('');
   const [cookie] = useCookies();
   const baseUrl = apiConfig.apiUrl;
+  const user = useAppSelector((state) => state.user);
+  const dispatch = useAppDispatch();
 
   React.useEffect(() => {
     axios
@@ -88,8 +92,39 @@ const Teams: React.FC = () => {
       });
   }, [baseUrl, cookie]);
 
+  React.useEffect(() => {
+    dispatch(getMyself(cookie.calendarJWT));
+  }, [cookie.calendarJWT, dispatch]);
+
   const createNewTeam = async () => {
-    console.log('create new team');
+    const res = await axios.post(
+      `${baseUrl}teams/`,
+      {
+        team_name: newTeamName,
+      },
+      {
+        headers: {
+          Authorization: `JWT ${cookie.calendarJWT}`,
+        },
+      }
+    );
+
+    await axios.put(
+      `${baseUrl}update_myself/`,
+      {
+        id: user.id,
+        username: user.username,
+        email: user.email,
+        team_of_affiliation: res.data.id,
+      },
+      {
+        headers: {
+          Authorization: `JWT ${cookie.calendarJWT}`,
+        },
+      }
+    );
+    dispatch(getMyself(cookie.calendarJWT));
+    setTeam(res.data);
   };
 
   if (loading) {

@@ -44,9 +44,10 @@ class MyselfSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = Users
-        fields = ('id', 'username', 'password', 'email', 'team_of_affiliation')
-        extra_kwargs = {'password': {'write_only': True, 'required': True}}
+        fields = ('id', 'username', 'email', 'team_of_affiliation')
     
-    def validate_password(self,value):
-        return make_password(value)
+class MyselfUpdateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Users
+        fields = ('id', 'username', 'email', 'team_of_affiliation')
     
