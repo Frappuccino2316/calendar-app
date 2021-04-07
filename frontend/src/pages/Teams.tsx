@@ -11,7 +11,7 @@ import MembersList from 'components/Teams/MembersList';
 import InvitationForm from 'components/Teams/InvitationForm';
 import InvitationList from 'components/Teams/InvitationList';
 import Button from 'components/utils/button/Button';
-import './Teams.css';
+import './Teams.scss';
 
 type Team = {
   id: number;

@@ -4,8 +4,8 @@ import FormatListBulletedIcon from '@material-ui/icons/FormatListBulleted';
 import GroupIcon from '@material-ui/icons/Group';
 import Auth from 'components/Auth';
 import SettingsIcon from '@material-ui/icons/Settings';
-import 'pages/Home.css';
 import Title from 'components/Title';
+import 'pages/Home.scss';
 
 const Home: React.FC = () => {
   type IconStyle = {

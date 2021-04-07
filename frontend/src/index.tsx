@@ -4,7 +4,7 @@ import { CookiesProvider } from 'react-cookie';
 import { Provider } from 'react-redux';
 import App from './App';
 import store from 'app/store';
-import './index.css';
+import './index.scss';
 import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(

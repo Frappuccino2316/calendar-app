@@ -6,7 +6,7 @@ import Tasks from 'pages/Tasks';
 import Teams from 'pages/Teams';
 import Settings from 'pages/Settings';
 import Header from 'components/Header';
-import './App.css';
+import './App.scss';
 
 function App() {
   return (
