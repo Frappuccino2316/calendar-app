@@ -3,7 +3,7 @@ import { NavLink, useHistory } from 'react-router-dom';
 import { useCookies } from 'react-cookie';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import verifyToken from 'commons/auth/verifyToken';
-import styles from './Header.module.css';
+import styles from './Header.module.scss';
 
 const Header: React.FC = () => {
   const [login, setLogin] = React.useState(false);
