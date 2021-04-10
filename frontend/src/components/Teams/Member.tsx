@@ -11,8 +11,8 @@ type Props = {
   user: User;
 };
 
-const Member: React.FC<Props> = ({ user }) => {
+const Member: React.FC<Props> = React.memo(({ user }) => {
   return <li key={user.id}>{user.username}</li>;
-};
+});
 
 export default Member;
