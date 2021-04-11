@@ -5,8 +5,8 @@ type Props = {
   title: string;
 };
 
-const Title: React.FC<Props> = ({ title }) => {
+const Title: React.FC<Props> = React.memo(({ title }) => {
   return <h1>{title}</h1>;
-};
+});
 
 export default Title;
