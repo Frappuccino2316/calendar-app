@@ -21,7 +21,7 @@ type Props = {
   invitations: Application[];
 };
 
-const InvitationList: React.FC<Props> = ({ invitations }) => {
+const InvitationList: React.FC<Props> = React.memo(({ invitations }) => {
   const baseUrl: string | undefined = apiConfig.apiUrl;
   const [isDelete, setIsDelete] = React.useState<boolean>(false);
   const [cookie] = useCookies();
@@ -65,6 +65,6 @@ const InvitationList: React.FC<Props> = ({ invitations }) => {
       </table>
     </div>
   );
-};
+});
 
 export default InvitationList;
