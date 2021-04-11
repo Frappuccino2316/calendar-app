@@ -19,7 +19,7 @@ type Application = {
   application_team: string;
 };
 
-const ApplicationForm = () => {
+const ApplicationForm: React.FC = () => {
   const INITIAL_APPLICATION: Application = {
     id: '',
     applicant: '',
