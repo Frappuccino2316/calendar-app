@@ -5,7 +5,7 @@ type Props = {
   setValueFunction: React.Dispatch<React.SetStateAction<string>>;
 };
 
-const TextBox: React.FC<Props> = ({ value, setValueFunction }) => {
+const TextBox: React.FC<Props> = React.memo(({ value, setValueFunction }) => {
   return (
     <input
       type="text"
@@ -15,6 +15,6 @@ const TextBox: React.FC<Props> = ({ value, setValueFunction }) => {
       }
     />
   );
-};
+});
 
 export default TextBox;
