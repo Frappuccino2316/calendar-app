@@ -146,17 +146,8 @@ const Teams: React.FC = () => {
         <Title title="Team" />
         <h3>チームに所属していません</h3>
         {myApplication && <p>招待あり</p>}
-        <TextBox
-          value={newTeamName}
-          setValueFunction={React.useCallback(
-            (value) => setNewTeamName(value),
-            []
-          )}
-        />
-        <Button
-          text="作成"
-          onClickFunction={React.useCallback(() => createNewTeam(), [])}
-        />
+        <TextBox value={newTeamName} setValueFunction={setNewTeamName} />
+        <Button text="作成" onClickFunction={createNewTeam} />
       </Auth>
     );
   }
