@@ -1,17 +1,17 @@
 import React from 'react';
-import './Button.css';
+import styles from './Button.module.scss';
 
 type Props = {
   text: string;
   onClickFunction: () => void;
 };
 
-const Button: React.FC<Props> = ({ text, onClickFunction }) => {
+const Button: React.FC<Props> = React.memo(({ text, onClickFunction }) => {
   return (
-    <div className="btn btn--orange" onClick={onClickFunction}>
+    <div className={styles.btn_orange} onClick={onClickFunction}>
       {text}
     </div>
   );
-};
+});
 
 export default Button;

@@ -51,10 +51,16 @@ const Settings: React.FC = () => {
     <Auth>
       <Title title="Setting" />
       <span>ユーザー名</span>
-      <TextBox value={username} setValueFunction={setUsername} />
+      <TextBox
+        value={username}
+        setValueFunction={React.useCallback((value) => setUsername(value), [])}
+      />
       <br />
       <span>メールアドレス</span>
-      <TextBox value={email} setValueFunction={setEmail} />
+      <TextBox
+        value={email}
+        setValueFunction={React.useCallback((value) => setEmail(value), [])}
+      />
       <br />
       <Button text="保存" onClickFunction={() => updateMyself()} />
     </Auth>

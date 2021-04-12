@@ -12,12 +12,12 @@ type Props = {
   membersInformation: User[];
 };
 
-const MembersList: React.FC<Props> = ({ membersInformation }) => {
+const MembersList: React.FC<Props> = React.memo(({ membersInformation }) => {
   const members = membersInformation.map((member: User) => {
     return <Member key={member.id} user={member} />;
   });
 
   return <ul>{members}</ul>;
-};
+});
 
 export default MembersList;

@@ -5,7 +5,7 @@ import { apiConfig } from 'commons/apiConfig';
 
 const baseUrl: string | undefined = apiConfig.apiUrl;
 
-const InvitationForm = () => {
+const InvitationForm: React.FC = React.memo(() => {
   const [email, setEmail] = React.useState<string>('');
   const [isInvitation, setIsInvitation] = React.useState<boolean>(false);
   const [cookie] = useCookies();
@@ -46,6 +46,6 @@ const InvitationForm = () => {
       )}
     </div>
   );
-};
+});
 
 export default InvitationForm;
