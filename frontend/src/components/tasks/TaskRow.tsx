@@ -16,7 +16,7 @@ const TaskRow: React.FC<TaskProps> = ({
   end_date,
 }) => {
   return (
-    <tr>
+    <tr key={id}>
       <td>{title}</td>
       <td>{status}</td>
       <td>{start_date}</td>
