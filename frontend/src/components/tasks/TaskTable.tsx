@@ -14,18 +14,16 @@ interface TasksProps {
 }
 
 const TaskTable: React.FC<TasksProps> = ({ tasks }) => {
-  const taskRows = tasks.map((task) => {
-    <tr key={task.id}>
-      <TaskRow {...task} />
-    </tr>;
-  });
+  const taskRows = tasks.map((task) => <TaskRow {...task} key={task.id} />);
   return (
     <table>
       <thead>
-        <th>Title</th>
-        <th>Status</th>
-        <th>Start</th>
-        <th>End</th>
+        <tr>
+          <th>Title</th>
+          <th>Status</th>
+          <th>Start</th>
+          <th>End</th>
+        </tr>
       </thead>
       <tbody>{taskRows}</tbody>
     </table>
