@@ -28,7 +28,10 @@ describe('Task Table', () => {
       },
     ];
     render(<TaskTable tasks={tasks} />);
-    expect(screen.getByText('タスク名')).toBeTruthy();
+    expect(screen.getByText('Title')).toBeTruthy();
+    expect(screen.getByText('Status')).toBeTruthy();
+    expect(screen.getByText('Start')).toBeTruthy();
+    expect(screen.getByText('End')).toBeTruthy();
     expect(screen.getByText('planning')).toBeTruthy();
     expect(screen.getByText('2021-04-20')).toBeTruthy();
     expect(screen.getByText('dev_ready')).toBeTruthy();
