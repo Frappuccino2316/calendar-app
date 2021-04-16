@@ -11,7 +11,13 @@ describe('Task Row', () => {
       start_date: '2021-04-16',
       end_date: '2021-04-20',
     };
-    render(<TaskRow {...task} />);
+    render(
+      <table>
+        <tbody>
+          <TaskRow {...task} />
+        </tbody>
+      </table>
+    );
     expect(screen.getByText('Example Task')).toBeTruthy();
   });
 });
