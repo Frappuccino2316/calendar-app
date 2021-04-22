@@ -1,5 +1,6 @@
 import React from 'react';
 import TaskRow from 'components/tasks/TaskRow';
+import styles from 'components/tasks/TaskTable.module.scss';
 
 interface Task {
   id: number;
@@ -16,7 +17,7 @@ interface TasksProps {
 const TaskTable: React.FC<TasksProps> = ({ tasks }) => {
   const taskRows = tasks.map((task) => <TaskRow {...task} key={task.id} />);
   return (
-    <table>
+    <table className={styles.table}>
       <thead>
         <tr>
           <th>Title</th>
