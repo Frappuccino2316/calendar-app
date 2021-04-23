@@ -2,7 +2,7 @@ import React from 'react';
 import { useCookies } from 'react-cookie';
 import axios from 'axios';
 import { apiConfig } from 'commons/apiConfig';
-import './InvitationList.scss';
+import styles from './InvitationList.module.scss';
 
 type User = {
   id: number;
@@ -41,9 +41,9 @@ const InvitationList: React.FC<Props> = React.memo(({ invitations }) => {
   const usersList = invitations.map((invitation) => {
     return (
       <tr key={invitation.id}>
-        <td>{invitation.applicant.username}</td>
-        <td>{invitation.applicant.email}</td>
-        <td>
+        <td className={styles.td}>{invitation.applicant.username}</td>
+        <td className={styles.td}>{invitation.applicant.email}</td>
+        <td className={styles.td}>
           <button onClick={() => deleteInvitation(invitation.id)}>取消</button>
         </td>
       </tr>
@@ -53,9 +53,9 @@ const InvitationList: React.FC<Props> = React.memo(({ invitations }) => {
   return (
     <div className="invitation_table">
       {isDelete && <p>招待を取り消しました</p>}
-      <table>
+      <table className={styles.table}>
         <thead>
-          <tr>
+          <tr className={styles.tr}>
             <th>ユーザー名</th>
             <th>メールアドレス</th>
             <th></th>
