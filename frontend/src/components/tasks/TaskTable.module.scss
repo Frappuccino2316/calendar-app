@@ -1,3 +1,30 @@
 .table {
-  border: none;
+  min-width: 700px;
+  margin: 50px auto;
+  border-collapse: collapse;
+  border-spacing: 0;
+
+  .tr {
+    border-bottom: solid 1px #eee;
+    cursor: pointer;
+    text-align: center;
+    width: 25%;
+    padding: 15px 0;
+
+    .th {
+      text-align: center;
+      width: 25%;
+      padding: 15px 0;
+      border-bottom: 1px #000;
+    }
+  }
+
+  .tr:hover {
+    background-color: #d4f0fd;
+  }
+
+  .tbody {
+    border-collapse: collapse;
+    border-bottom: 1px #000;
+  }
 }

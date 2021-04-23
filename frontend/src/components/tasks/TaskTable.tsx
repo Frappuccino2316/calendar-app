@@ -19,14 +19,14 @@ const TaskTable: React.FC<TasksProps> = ({ tasks }) => {
   return (
     <table className={styles.table}>
       <thead>
-        <tr>
-          <th>Title</th>
-          <th>Status</th>
-          <th>Start</th>
-          <th>End</th>
+        <tr className={styles.tr}>
+          <th className={styles.th}>Title</th>
+          <th className={styles.th}>Status</th>
+          <th className={styles.th}>Start</th>
+          <th className={styles.th}>End</th>
         </tr>
       </thead>
-      <tbody>{taskRows}</tbody>
+      <tbody className={styles.tbody}>{taskRows}</tbody>
     </table>
   );
 };

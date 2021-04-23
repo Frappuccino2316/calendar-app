@@ -1,4 +1,5 @@
 import React from 'react';
+import styles from 'components/tasks/TaskRow.module.scss';
 
 interface TaskProps {
   id: number;
@@ -16,11 +17,11 @@ const TaskRow: React.FC<TaskProps> = ({
   end_date,
 }) => {
   return (
-    <tr key={id}>
-      <td>{title}</td>
-      <td>{status}</td>
-      <td>{start_date}</td>
-      <td>{end_date}</td>
+    <tr key={id} className={styles.tr}>
+      <td className={styles.td}>{title}</td>
+      <td className={styles.td}>{status}</td>
+      <td className={styles.td}>{start_date}</td>
+      <td className={styles.td}>{end_date}</td>
     </tr>
   );
 };
